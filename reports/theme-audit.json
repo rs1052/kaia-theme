@@ -1,0 +1,1522 @@
+{
+  "vscode": {
+    "tag": "1.130.0",
+    "commit": "1b6a188127eeaf9194f945eb6eb89a657e93c54c",
+    "source": "https://github.com/microsoft/vscode",
+    "extractor": "registerColor() TypeScript registrations"
+  },
+  "themes": {
+    "kaia": {
+      "workbenchTokens": 939,
+      "tokenColorRules": 132,
+      "semanticTokenRules": 14,
+      "semanticPalette": [
+        {
+          "role": "transparent",
+          "hex": "#00000000",
+          "oklch": {
+            "l": 0,
+            "c": 0
+          },
+          "luminance": 0,
+          "inSrgb": true,
+          "gamutMapped": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "mode": "rgb",
+            "alpha": 0
+          }
+        },
+        {
+          "role": "deepest",
+          "hex": "#111111",
+          "oklch": {
+            "l": 0.17763777307657064,
+            "c": 0
+          },
+          "luminance": 0.005605391624202723,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.06666666666666671,
+            "g": 0.06666666666666665,
+            "b": 0.06666666666666668
+          }
+        },
+        {
+          "role": "border",
+          "hex": "#121212",
+          "oklch": {
+            "l": 0.18220370283599863,
+            "c": 0
+          },
+          "luminance": 0.006048833022857054,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.07058823529411773,
+            "g": 0.07058823529411767,
+            "b": 0.07058823529411767
+          }
+        },
+        {
+          "role": "chrome",
+          "hex": "#1a1a1a",
+          "oklch": {
+            "l": 0.217786502463702,
+            "c": 0
+          },
+          "luminance": 0.010329823029626936,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.10196078431372554,
+            "g": 0.10196078431372549,
+            "b": 0.10196078431372552
+          }
+        },
+        {
+          "role": "canvas",
+          "hex": "#212121",
+          "oklch": {
+            "l": 0.24775871011467596,
+            "c": 0
+          },
+          "luminance": 0.015208514422912708,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.12941176470588242,
+            "g": 0.12941176470588237,
+            "b": 0.1294117647058824
+          }
+        },
+        {
+          "role": "surfaceRaised",
+          "hex": "#303030",
+          "oklch": {
+            "l": 0.3091856337459671,
+            "c": 0
+          },
+          "luminance": 0.0295568344378088,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.18823529411764708,
+            "g": 0.18823529411764706,
+            "b": 0.18823529411764708
+          }
+        },
+        {
+          "role": "filter",
+          "hex": "#373737",
+          "oklch": {
+            "l": 0.3367991759180189,
+            "c": 0
+          },
+          "luminance": 0.038204371595346495,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.215686274509804,
+            "g": 0.21568627450980382,
+            "b": 0.21568627450980388
+          }
+        },
+        {
+          "role": "active",
+          "hex": "#424242",
+          "oklch": {
+            "l": 0.37909358396702786,
+            "c": 0
+          },
+          "luminance": 0.05448027644244236,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.25882352941176484,
+            "g": 0.25882352941176473,
+            "b": 0.2588235294117648
+          }
+        },
+        {
+          "role": "rangeBorder",
+          "hex": "#505050",
+          "oklch": {
+            "l": 0.43128123417619596,
+            "c": 0
+          },
+          "luminance": 0.08021982031446832,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.31372549019607854,
+            "g": 0.3137254901960784,
+            "b": 0.3137254901960785
+          }
+        },
+        {
+          "role": "subtle",
+          "hex": "#616161",
+          "oklch": {
+            "l": 0.4926091942525259,
+            "c": 0
+          },
+          "luminance": 0.1195384279883456,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.38039215686274525,
+            "g": 0.38039215686274513,
+            "b": 0.38039215686274525
+          }
+        },
+        {
+          "role": "muted",
+          "hex": "#9e9e9e",
+          "oklch": {
+            "l": 0.699260733081613,
+            "c": 0
+          },
+          "luminance": 0.3419144249086609,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.6196078431372549,
+            "g": 0.619607843137255,
+            "b": 0.619607843137255
+          }
+        },
+        {
+          "role": "secondary",
+          "hex": "#bdbdbd",
+          "oklch": {
+            "l": 0.7983723787523576,
+            "c": 0
+          },
+          "luminance": 0.5088813208549338,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.7411764705882354,
+            "g": 0.7411764705882354,
+            "b": 0.7411764705882355
+          }
+        },
+        {
+          "role": "normal",
+          "hex": "#eeeeee",
+          "oklch": {
+            "l": 0.9491192605935381,
+            "c": 0
+          },
+          "luminance": 0.8549926081242338,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.9333333333333336,
+            "g": 0.9333333333333332,
+            "b": 0.9333333333333335
+          }
+        },
+        {
+          "role": "strong",
+          "hex": "#f5f5f5",
+          "oklch": {
+            "l": 0.9701507725365187,
+            "c": 0
+          },
+          "luminance": 0.9130986517934191,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.9607843137254907,
+            "g": 0.9607843137254902,
+            "b": 0.9607843137254904
+          }
+        },
+        {
+          "role": "panelTitle",
+          "hex": "#e0e0e0",
+          "oklch": {
+            "l": 0.9067006916295425,
+            "c": 0
+          },
+          "luminance": 0.7454042095403874,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.8784313725490198,
+            "g": 0.8784313725490197,
+            "b": 0.8784313725490198
+          }
+        },
+        {
+          "role": "white",
+          "hex": "#ffffff",
+          "oklch": {
+            "l": 1.0000000000000002,
+            "c": 0
+          },
+          "luminance": 1,
+          "inSrgb": true,
+          "gamutMapped": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "mode": "rgb"
+          }
+        },
+        {
+          "role": "accent",
+          "hex": "#fff59d",
+          "oklch": {
+            "l": 0.9588013163651236,
+            "c": 0.10925960403412868,
+            "h": 102.63205217009899
+          },
+          "luminance": 0.8899913687691429,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.9999999999999992,
+            "g": 0.9607843137254907,
+            "b": 0.6156862745098043
+          }
+        },
+        {
+          "role": "accentBright",
+          "hex": "#fff9c4",
+          "oklch": {
+            "l": 0.9739197408195215,
+            "c": 0.06817786345927924,
+            "h": 102.18863916372314
+          },
+          "luminance": 0.9299688582607509,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.9999999999999983,
+            "g": 0.976470588235295,
+            "b": 0.7686274509803924
+          }
+        },
+        {
+          "role": "onAccent",
+          "hex": "#212121",
+          "oklch": {
+            "l": 0.24775871011467596,
+            "c": 0
+          },
+          "luminance": 0.015208514422912708,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.12941176470588242,
+            "g": 0.12941176470588237,
+            "b": 0.1294117647058824
+          }
+        },
+        {
+          "role": "red",
+          "hex": "#ef9a9a",
+          "oklch": {
+            "l": 0.7715654439868113,
+            "c": 0.10236460754395205,
+            "h": 19.669956191091256
+          },
+          "luminance": 0.4379501864358795,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.937254901960783,
+            "g": 0.6039215686274519,
+            "b": 0.6039215686274509
+          }
+        },
+        {
+          "role": "redBright",
+          "hex": "#ffcdd2",
+          "oklch": {
+            "l": 0.8931140952500448,
+            "c": 0.056927494375860026,
+            "h": 11.536024914746909
+          },
+          "luminance": 0.6957578652800609,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.9999999999999986,
+            "g": 0.8039215686274516,
+            "b": 0.8235294117647054
+          }
+        },
+        {
+          "role": "orange",
+          "hex": "#ffcc80",
+          "oklch": {
+            "l": 0.8740731569624267,
+            "c": 0.11023198048043113,
+            "h": 76.47468980388605
+          },
+          "luminance": 0.6600424408575611,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.9999999999999986,
+            "g": 0.8000000000000009,
+            "b": 0.5019607843137261
+          }
+        },
+        {
+          "role": "yellow",
+          "hex": "#ffeb3b",
+          "oklch": {
+            "l": 0.9284639322588639,
+            "c": 0.1802647770095776,
+            "h": 102.49744024191013
+          },
+          "luminance": 0.8099242849815864,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.9999999999999983,
+            "g": 0.9215686274509811,
+            "b": 0.2313725490196073
+          }
+        },
+        {
+          "role": "yellowSoft",
+          "hex": "#ffecb3",
+          "oklch": {
+            "l": 0.9448382846240779,
+            "c": 0.07561947788482408,
+            "h": 91.81552328999886
+          },
+          "luminance": 0.8450557867178969,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.9999999999999981,
+            "g": 0.925490196078432,
+            "b": 0.7019607843137253
+          }
+        },
+        {
+          "role": "green",
+          "hex": "#a5d6a7",
+          "oklch": {
+            "l": 0.8292055789856145,
+            "c": 0.08266064820180961,
+            "h": 145.81693113618343
+          },
+          "luminance": 0.5888248783234297,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.6470588235294104,
+            "g": 0.8392156862745103,
+            "b": 0.6549019607843137
+          }
+        },
+        {
+          "role": "greenBright",
+          "hex": "#c8e6c9",
+          "oklch": {
+            "l": 0.8952233757585843,
+            "c": 0.05037254966678234,
+            "h": 146.03664999781904
+          },
+          "luminance": 0.730900350332983,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.7843137254901943,
+            "g": 0.9019607843137264,
+            "b": 0.788235294117647
+          }
+        },
+        {
+          "role": "greenSoft",
+          "hex": "#dcedc8",
+          "oklch": {
+            "l": 0.92377845482506,
+            "c": 0.052239979119160694,
+            "h": 127.54265208656378
+          },
+          "luminance": 0.7995414811825491,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.8627450980392141,
+            "g": 0.9294117647058833,
+            "b": 0.7843137254901963
+          }
+        },
+        {
+          "role": "cyan",
+          "hex": "#80deea",
+          "oklch": {
+            "l": 0.8466978322395711,
+            "c": 0.09085801683833078,
+            "h": 206.19957479015002
+          },
+          "luminance": 0.6277225951042475,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.5019607843137238,
+            "g": 0.8705882352941181,
+            "b": 0.9176470588235294
+          }
+        },
+        {
+          "role": "cyanBright",
+          "hex": "#b2ebf2",
+          "oklch": {
+            "l": 0.9034733266164457,
+            "c": 0.058508075066358044,
+            "h": 205.56869658149262
+          },
+          "luminance": 0.7529244389344609,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.698039215686273,
+            "g": 0.921568627450981,
+            "b": 0.9490196078431373
+          }
+        },
+        {
+          "role": "blue",
+          "hex": "#81d4fa",
+          "oklch": {
+            "l": 0.8308121291120502,
+            "c": 0.09688932117651716,
+            "h": 229.09084676701542
+          },
+          "luminance": 0.5865622154853025,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.5058823529411751,
+            "g": 0.831372549019608,
+            "b": 0.9803921568627453
+          }
+        },
+        {
+          "role": "blueStrong",
+          "hex": "#2196f3",
+          "oklch": {
+            "l": 0.6581558374218325,
+            "c": 0.16895943589983567,
+            "h": 248.81353495845553
+          },
+          "luminance": 0.2860709045027159,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.12941176470587942,
+            "g": 0.5882352941176476,
+            "b": 0.9529411764705878
+          }
+        },
+        {
+          "role": "blueBright",
+          "hex": "#bbdefb",
+          "oklch": {
+            "l": 0.8847910811548371,
+            "c": 0.054586178478148596,
+            "h": 243.38821225157722
+          },
+          "luminance": 0.6977238231605423,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.7333333333333318,
+            "g": 0.8705882352941188,
+            "b": 0.9843137254901958
+          }
+        },
+        {
+          "role": "purple",
+          "hex": "#ce93d8",
+          "oklch": {
+            "l": 0.7437184162168995,
+            "c": 0.11606245223118843,
+            "h": 321.55017742844444
+          },
+          "luminance": 0.38947116347774907,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.8078431372549008,
+            "g": 0.5764705882352944,
+            "b": 0.8470588235294121
+          }
+        },
+        {
+          "role": "purpleBright",
+          "hex": "#e1bee7",
+          "oklch": {
+            "l": 0.8443755221783553,
+            "c": 0.0676276604145223,
+            "h": 321.3589654860281
+          },
+          "luminance": 0.5860398472485226,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.8823529411764695,
+            "g": 0.7450980392156868,
+            "b": 0.9058823529411768
+          }
+        },
+        {
+          "role": "purpleSoft",
+          "hex": "#d1c4e9",
+          "oklch": {
+            "l": 0.8426841114908944,
+            "c": 0.0527147821549938,
+            "h": 301.2894832775089
+          },
+          "luminance": 0.5891835722865163,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.8196078431372537,
+            "g": 0.7686274509803925,
+            "b": 0.9137254901960784
+          }
+        },
+        {
+          "role": "coralSoft",
+          "hex": "#ffccbc",
+          "oklch": {
+            "l": 0.8856646378695662,
+            "c": 0.062231877004295694,
+            "h": 38.13120491076734
+          },
+          "luminance": 0.6807657150192891,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.9999999999999986,
+            "g": 0.8000000000000007,
+            "b": 0.7372549019607847
+          }
+        },
+        {
+          "role": "pinkSoft",
+          "hex": "#f8bbd0",
+          "oklch": {
+            "l": 0.8533145504538727,
+            "c": 0.07491115540559735,
+            "h": 356.33145076271114
+          },
+          "luminance": 0.6005117291818732,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.9725490196078413,
+            "g": 0.7333333333333343,
+            "b": 0.8156862745098039
+          }
+        },
+        {
+          "role": "highlightOverlay",
+          "hex": "#f5f5f526",
+          "oklch": {
+            "l": 0.9701507725365187,
+            "c": 0
+          },
+          "luminance": 0.9130986517934191,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.9607843137254907,
+            "g": 0.9607843137254902,
+            "b": 0.9607843137254904,
+            "alpha": 0.14901960784313725
+          }
+        },
+        {
+          "role": "diffAddedLine",
+          "hex": "#a5d6a719",
+          "oklch": {
+            "l": 0.8292055789856145,
+            "c": 0.08266064820180961,
+            "h": 145.81693113618343
+          },
+          "luminance": 0.5888248783234297,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.6470588235294104,
+            "g": 0.8392156862745103,
+            "b": 0.6549019607843137,
+            "alpha": 0.09803921568627451
+          }
+        },
+        {
+          "role": "diffRemovedLine",
+          "hex": "#ef9a9a19",
+          "oklch": {
+            "l": 0.7715654439868113,
+            "c": 0.10236460754395205,
+            "h": 19.669956191091256
+          },
+          "luminance": 0.4379501864358795,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.937254901960783,
+            "g": 0.6039215686274519,
+            "b": 0.6039215686274509,
+            "alpha": 0.09803921568627451
+          }
+        }
+      ],
+      "coverage": {
+        "assigned": 917,
+        "fallback": 0,
+        "unresolved": []
+      },
+      "referenceMapping": {
+        "resolvedSources": [
+          "dark_vs.json",
+          "dark_plus.json",
+          "dark_modern.json",
+          "2026-dark.json"
+        ],
+        "comparedWithReference": 917,
+        "directReference": 307,
+        "archetypeReference": 610,
+        "neutral": 730,
+        "chromatic": 187,
+        "intentionalOverrides": [
+          "activityBar.activeBorder",
+          "activityBar.activeFocusBorder",
+          "activityBarBadge.foreground",
+          "activityBarTop.activeBorder",
+          "activityErrorBadge.foreground",
+          "activityWarningBadge.foreground",
+          "badge.foreground",
+          "button.foreground",
+          "contrastActiveBorder",
+          "contrastBorder",
+          "diffEditor.insertedLineBackground",
+          "diffEditor.insertedTextBorder",
+          "diffEditor.removedLineBackground",
+          "diffEditor.removedTextBorder",
+          "diffEditorGutter.insertedLineBackground",
+          "diffEditorGutter.removedLineBackground",
+          "editor.wordHighlightTextBackground",
+          "editor.wordHighlightTextBorder",
+          "editorError.background",
+          "editorInfo.background",
+          "editorWarning.background",
+          "extensionButton.prominentForeground",
+          "quickInputList.focusForeground",
+          "quickInputList.focusHighlightForeground",
+          "quickInputList.focusIconForeground",
+          "scmGraph.foreground1",
+          "scmGraph.foreground2",
+          "scmGraph.foreground3",
+          "scmGraph.foreground4",
+          "scmGraph.foreground5",
+          "scmGraph.historyItemBaseRefColor",
+          "scmGraph.historyItemHoverAdditionsForeground",
+          "scmGraph.historyItemHoverDeletionsForeground",
+          "scmGraph.historyItemHoverLabelForeground",
+          "scmGraph.historyItemRefColor",
+          "scmGraph.historyItemRemoteRefColor",
+          "statusBarItem.remoteForeground",
+          "statusBarItem.remoteHoverForeground"
+        ],
+        "mismatches": 0,
+        "mismatchTokens": [],
+        "opaqueDiagnosticBackgrounds": []
+      },
+      "contrast": [
+        {
+          "foreground": "editor.foreground",
+          "background": "editor.background",
+          "ratio": 14.769522972831433
+        },
+        {
+          "foreground": "button.foreground",
+          "background": "button.background",
+          "ratio": 14.415163067092545
+        },
+        {
+          "foreground": "input.foreground",
+          "background": "input.background",
+          "ratio": 12.105794035159768
+        }
+      ],
+      "referencePolarity": {
+        "darkBackgroundTokens": 118,
+        "lightForegroundTokens": 104,
+        "exceptionsBelow3": []
+      }
+    },
+    "kaia-subtle": {
+      "workbenchTokens": 939,
+      "tokenColorRules": 132,
+      "semanticTokenRules": 14,
+      "semanticPalette": [
+        {
+          "role": "transparent",
+          "hex": "#00000000",
+          "oklch": {
+            "l": 0,
+            "c": 0
+          },
+          "luminance": 0,
+          "inSrgb": true,
+          "gamutMapped": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "mode": "rgb",
+            "alpha": 0
+          }
+        },
+        {
+          "role": "deepest",
+          "hex": "#111111",
+          "oklch": {
+            "l": 0.17763777307657064,
+            "c": 0
+          },
+          "luminance": 0.005605391624202723,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.06666666666666671,
+            "g": 0.06666666666666665,
+            "b": 0.06666666666666668
+          }
+        },
+        {
+          "role": "border",
+          "hex": "#121212",
+          "oklch": {
+            "l": 0.18220370283599863,
+            "c": 0
+          },
+          "luminance": 0.006048833022857054,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.07058823529411773,
+            "g": 0.07058823529411767,
+            "b": 0.07058823529411767
+          }
+        },
+        {
+          "role": "chrome",
+          "hex": "#1a1a1a",
+          "oklch": {
+            "l": 0.217786502463702,
+            "c": 0
+          },
+          "luminance": 0.010329823029626936,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.10196078431372554,
+            "g": 0.10196078431372549,
+            "b": 0.10196078431372552
+          }
+        },
+        {
+          "role": "canvas",
+          "hex": "#212121",
+          "oklch": {
+            "l": 0.24775871011467596,
+            "c": 0
+          },
+          "luminance": 0.015208514422912708,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.12941176470588242,
+            "g": 0.12941176470588237,
+            "b": 0.1294117647058824
+          }
+        },
+        {
+          "role": "surfaceRaised",
+          "hex": "#303030",
+          "oklch": {
+            "l": 0.3091856337459671,
+            "c": 0
+          },
+          "luminance": 0.0295568344378088,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.18823529411764708,
+            "g": 0.18823529411764706,
+            "b": 0.18823529411764708
+          }
+        },
+        {
+          "role": "filter",
+          "hex": "#373737",
+          "oklch": {
+            "l": 0.3367991759180189,
+            "c": 0
+          },
+          "luminance": 0.038204371595346495,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.215686274509804,
+            "g": 0.21568627450980382,
+            "b": 0.21568627450980388
+          }
+        },
+        {
+          "role": "active",
+          "hex": "#424242",
+          "oklch": {
+            "l": 0.37909358396702786,
+            "c": 0
+          },
+          "luminance": 0.05448027644244236,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.25882352941176484,
+            "g": 0.25882352941176473,
+            "b": 0.2588235294117648
+          }
+        },
+        {
+          "role": "rangeBorder",
+          "hex": "#505050",
+          "oklch": {
+            "l": 0.43128123417619596,
+            "c": 0
+          },
+          "luminance": 0.08021982031446832,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.31372549019607854,
+            "g": 0.3137254901960784,
+            "b": 0.3137254901960785
+          }
+        },
+        {
+          "role": "subtle",
+          "hex": "#616161",
+          "oklch": {
+            "l": 0.4926091942525259,
+            "c": 0
+          },
+          "luminance": 0.1195384279883456,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.38039215686274525,
+            "g": 0.38039215686274513,
+            "b": 0.38039215686274525
+          }
+        },
+        {
+          "role": "muted",
+          "hex": "#9e9e9e",
+          "oklch": {
+            "l": 0.699260733081613,
+            "c": 0
+          },
+          "luminance": 0.3419144249086609,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.6196078431372549,
+            "g": 0.619607843137255,
+            "b": 0.619607843137255
+          }
+        },
+        {
+          "role": "secondary",
+          "hex": "#bdbdbd",
+          "oklch": {
+            "l": 0.7983723787523576,
+            "c": 0
+          },
+          "luminance": 0.5088813208549338,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.7411764705882354,
+            "g": 0.7411764705882354,
+            "b": 0.7411764705882355
+          }
+        },
+        {
+          "role": "normal",
+          "hex": "#eeeeee",
+          "oklch": {
+            "l": 0.9491192605935381,
+            "c": 0
+          },
+          "luminance": 0.8549926081242338,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.9333333333333336,
+            "g": 0.9333333333333332,
+            "b": 0.9333333333333335
+          }
+        },
+        {
+          "role": "strong",
+          "hex": "#f5f5f5",
+          "oklch": {
+            "l": 0.9701507725365187,
+            "c": 0
+          },
+          "luminance": 0.9130986517934191,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.9607843137254907,
+            "g": 0.9607843137254902,
+            "b": 0.9607843137254904
+          }
+        },
+        {
+          "role": "panelTitle",
+          "hex": "#e0e0e0",
+          "oklch": {
+            "l": 0.9067006916295425,
+            "c": 0
+          },
+          "luminance": 0.7454042095403874,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.8784313725490198,
+            "g": 0.8784313725490197,
+            "b": 0.8784313725490198
+          }
+        },
+        {
+          "role": "white",
+          "hex": "#ffffff",
+          "oklch": {
+            "l": 1.0000000000000002,
+            "c": 0
+          },
+          "luminance": 1,
+          "inSrgb": true,
+          "gamutMapped": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "mode": "rgb"
+          }
+        },
+        {
+          "role": "accent",
+          "hex": "#fffbbd",
+          "oklch": {
+            "l": 0.9764868173267719,
+            "c": 0.07894153496606666,
+            "h": 104.6727951181752
+          },
+          "luminance": 0.9392848358598477,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.9999999999999983,
+            "g": 0.9843137254901967,
+            "b": 0.7411764705882357
+          }
+        },
+        {
+          "role": "accentBright",
+          "hex": "#ffffd9",
+          "oklch": {
+            "l": 0.9903755850906439,
+            "c": 0.04914228436562667,
+            "h": 107.26429868246129
+          },
+          "luminance": 0.9778975411652816,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.9999732835927716,
+            "g": 0.9999784292317121,
+            "b": 0.8512570686054044
+          }
+        },
+        {
+          "role": "onAccent",
+          "hex": "#212121",
+          "oklch": {
+            "l": 0.24775871011467596,
+            "c": 0
+          },
+          "luminance": 0.015208514422912708,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.12941176470588242,
+            "g": 0.12941176470588237,
+            "b": 0.1294117647058824
+          }
+        },
+        {
+          "role": "red",
+          "hex": "#efb6b5",
+          "oklch": {
+            "l": 0.8278322215069422,
+            "c": 0.06647324907749652,
+            "h": 19.749516072424374
+          },
+          "luminance": 0.5514281539348064,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.9372549019607844,
+            "g": 0.7137254901960786,
+            "b": 0.7098039215686274
+          }
+        },
+        {
+          "role": "redBright",
+          "hex": "#ffcdd2",
+          "oklch": {
+            "l": 0.8931140952500448,
+            "c": 0.056927494375860026,
+            "h": 11.536024914746909
+          },
+          "luminance": 0.6957578652800609,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.9999999999999986,
+            "g": 0.8039215686274516,
+            "b": 0.8235294117647054
+          }
+        },
+        {
+          "role": "orange",
+          "hex": "#ffe2b2",
+          "oklch": {
+            "l": 0.9251348797251373,
+            "c": 0.06967973911758917,
+            "h": 80.16581173085946
+          },
+          "luminance": 0.7886706519878408,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.9999999999999999,
+            "g": 0.8862745098039215,
+            "b": 0.6980392156862747
+          }
+        },
+        {
+          "role": "yellow",
+          "hex": "#fffa96",
+          "oklch": {
+            "l": 0.9677871167540217,
+            "c": 0.12209080927549901,
+            "h": 105.9689167375409
+          },
+          "luminance": 0.9183322263197352,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.9999999999999981,
+            "g": 0.9803921568627464,
+            "b": 0.5882352941176471
+          }
+        },
+        {
+          "role": "yellowSoft",
+          "hex": "#ffecb3",
+          "oklch": {
+            "l": 0.9448382846240779,
+            "c": 0.07561947788482408,
+            "h": 91.81552328999886
+          },
+          "luminance": 0.8450557867178969,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.9999999999999981,
+            "g": 0.925490196078432,
+            "b": 0.7019607843137253
+          }
+        },
+        {
+          "role": "green",
+          "hex": "#c3e3c4",
+          "oklch": {
+            "l": 0.8841882762820585,
+            "c": 0.05392253529746746,
+            "h": 145.93606557295655
+          },
+          "luminance": 0.7052579441878851,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.7647058823529396,
+            "g": 0.8901960784313733,
+            "b": 0.7686274509803922
+          }
+        },
+        {
+          "role": "greenBright",
+          "hex": "#c8e6c9",
+          "oklch": {
+            "l": 0.8952233757585843,
+            "c": 0.05037254966678234,
+            "h": 146.03664999781904
+          },
+          "luminance": 0.730900350332983,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.7843137254901943,
+            "g": 0.9019607843137264,
+            "b": 0.788235294117647
+          }
+        },
+        {
+          "role": "greenSoft",
+          "hex": "#dcedc8",
+          "oklch": {
+            "l": 0.92377845482506,
+            "c": 0.052239979119160694,
+            "h": 127.54265208656378
+          },
+          "luminance": 0.7995414811825491,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.8627450980392141,
+            "g": 0.9294117647058833,
+            "b": 0.7843137254901963
+          }
+        },
+        {
+          "role": "cyan",
+          "hex": "#abe8f0",
+          "oklch": {
+            "l": 0.8923938246179263,
+            "c": 0.062453203061463416,
+            "h": 206.20659104435012
+          },
+          "luminance": 0.7266242297415111,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.6705882352941168,
+            "g": 0.9098039215686279,
+            "b": 0.9411764705882356
+          }
+        },
+        {
+          "role": "cyanBright",
+          "hex": "#b2ebf2",
+          "oklch": {
+            "l": 0.9034733266164457,
+            "c": 0.058508075066358044,
+            "h": 205.56869658149262
+          },
+          "luminance": 0.7529244389344609,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.698039215686273,
+            "g": 0.921568627450981,
+            "b": 0.9490196078431373
+          }
+        },
+        {
+          "role": "blue",
+          "hex": "#afe2fb",
+          "oklch": {
+            "l": 0.8856506802577981,
+            "c": 0.06277975702567723,
+            "h": 229.44965198401528
+          },
+          "luminance": 0.704717072421866,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.6862745098039192,
+            "g": 0.8862745098039223,
+            "b": 0.9843137254901962
+          }
+        },
+        {
+          "role": "blueStrong",
+          "hex": "#2196f3",
+          "oklch": {
+            "l": 0.6581558374218325,
+            "c": 0.16895943589983567,
+            "h": 248.81353495845553
+          },
+          "luminance": 0.2860709045027159,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.12941176470587942,
+            "g": 0.5882352941176476,
+            "b": 0.9529411764705878
+          }
+        },
+        {
+          "role": "blueBright",
+          "hex": "#bbdefb",
+          "oklch": {
+            "l": 0.8847910811548371,
+            "c": 0.054586178478148596,
+            "h": 243.38821225157722
+          },
+          "luminance": 0.6977238231605423,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.7333333333333318,
+            "g": 0.8705882352941188,
+            "b": 0.9843137254901958
+          }
+        },
+        {
+          "role": "purple",
+          "hex": "#d2aad9",
+          "oklch": {
+            "l": 0.7888658626780055,
+            "c": 0.07859076748944233,
+            "h": 321.30644687285246
+          },
+          "luminance": 0.4746084296882138,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.823529411764705,
+            "g": 0.6666666666666673,
+            "b": 0.8509803921568627
+          }
+        },
+        {
+          "role": "purpleBright",
+          "hex": "#e1bee7",
+          "oklch": {
+            "l": 0.8443755221783553,
+            "c": 0.0676276604145223,
+            "h": 321.3589654860281
+          },
+          "luminance": 0.5860398472485226,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.8823529411764695,
+            "g": 0.7450980392156868,
+            "b": 0.9058823529411768
+          }
+        },
+        {
+          "role": "purpleSoft",
+          "hex": "#d1c4e9",
+          "oklch": {
+            "l": 0.8426841114908944,
+            "c": 0.0527147821549938,
+            "h": 301.2894832775089
+          },
+          "luminance": 0.5891835722865163,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.8196078431372537,
+            "g": 0.7686274509803925,
+            "b": 0.9137254901960784
+          }
+        },
+        {
+          "role": "coralSoft",
+          "hex": "#ffccbc",
+          "oklch": {
+            "l": 0.8856646378695662,
+            "c": 0.062231877004295694,
+            "h": 38.13120491076734
+          },
+          "luminance": 0.6807657150192891,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.9999999999999986,
+            "g": 0.8000000000000007,
+            "b": 0.7372549019607847
+          }
+        },
+        {
+          "role": "pinkSoft",
+          "hex": "#f8bbd0",
+          "oklch": {
+            "l": 0.8533145504538727,
+            "c": 0.07491115540559735,
+            "h": 356.33145076271114
+          },
+          "luminance": 0.6005117291818732,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.9725490196078413,
+            "g": 0.7333333333333343,
+            "b": 0.8156862745098039
+          }
+        },
+        {
+          "role": "highlightOverlay",
+          "hex": "#f5f5f526",
+          "oklch": {
+            "l": 0.9701507725365187,
+            "c": 0
+          },
+          "luminance": 0.9130986517934191,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.9607843137254907,
+            "g": 0.9607843137254902,
+            "b": 0.9607843137254904,
+            "alpha": 0.14901960784313725
+          }
+        },
+        {
+          "role": "diffAddedLine",
+          "hex": "#c3e3c419",
+          "oklch": {
+            "l": 0.8841882762820585,
+            "c": 0.05392253529746746,
+            "h": 145.93606557295655
+          },
+          "luminance": 0.7052579441878851,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.7647058823529396,
+            "g": 0.8901960784313733,
+            "b": 0.7686274509803922,
+            "alpha": 0.09803921568627451
+          }
+        },
+        {
+          "role": "diffRemovedLine",
+          "hex": "#efb6b519",
+          "oklch": {
+            "l": 0.8278322215069422,
+            "c": 0.06647324907749652,
+            "h": 19.749516072424374
+          },
+          "luminance": 0.5514281539348064,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.9372549019607844,
+            "g": 0.7137254901960786,
+            "b": 0.7098039215686274,
+            "alpha": 0.09803921568627451
+          }
+        }
+      ],
+      "coverage": {
+        "assigned": 917,
+        "fallback": 0,
+        "unresolved": []
+      },
+      "referenceMapping": {
+        "resolvedSources": [
+          "dark_vs.json",
+          "dark_plus.json",
+          "dark_modern.json",
+          "2026-dark.json"
+        ],
+        "comparedWithReference": 917,
+        "directReference": 307,
+        "archetypeReference": 610,
+        "neutral": 730,
+        "chromatic": 187,
+        "intentionalOverrides": [
+          "activityBar.activeBorder",
+          "activityBar.activeFocusBorder",
+          "activityBarBadge.foreground",
+          "activityBarTop.activeBorder",
+          "activityErrorBadge.foreground",
+          "activityWarningBadge.foreground",
+          "badge.foreground",
+          "button.foreground",
+          "contrastActiveBorder",
+          "contrastBorder",
+          "diffEditor.insertedLineBackground",
+          "diffEditor.insertedTextBorder",
+          "diffEditor.removedLineBackground",
+          "diffEditor.removedTextBorder",
+          "diffEditorGutter.insertedLineBackground",
+          "diffEditorGutter.removedLineBackground",
+          "editor.wordHighlightTextBackground",
+          "editor.wordHighlightTextBorder",
+          "editorError.background",
+          "editorInfo.background",
+          "editorWarning.background",
+          "extensionButton.prominentForeground",
+          "quickInputList.focusForeground",
+          "quickInputList.focusHighlightForeground",
+          "quickInputList.focusIconForeground",
+          "scmGraph.foreground1",
+          "scmGraph.foreground2",
+          "scmGraph.foreground3",
+          "scmGraph.foreground4",
+          "scmGraph.foreground5",
+          "scmGraph.historyItemBaseRefColor",
+          "scmGraph.historyItemHoverAdditionsForeground",
+          "scmGraph.historyItemHoverDeletionsForeground",
+          "scmGraph.historyItemHoverLabelForeground",
+          "scmGraph.historyItemRefColor",
+          "scmGraph.historyItemRemoteRefColor",
+          "statusBarItem.remoteForeground",
+          "statusBarItem.remoteHoverForeground"
+        ],
+        "mismatches": 0,
+        "mismatchTokens": [],
+        "opaqueDiagnosticBackgrounds": []
+      },
+      "contrast": [
+        {
+          "foreground": "editor.foreground",
+          "background": "editor.background",
+          "ratio": 14.769522972831433
+        },
+        {
+          "foreground": "button.foreground",
+          "background": "button.background",
+          "ratio": 15.171099121255807
+        },
+        {
+          "foreground": "input.foreground",
+          "background": "input.background",
+          "ratio": 12.105794035159768
+        }
+      ],
+      "referencePolarity": {
+        "darkBackgroundTokens": 118,
+        "lightForegroundTokens": 104,
+        "exceptionsBelow3": []
+      }
+    }
+  }
+}

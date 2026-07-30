@@ -1,0 +1,14 @@
+node_modules/
+dist/
+themes/kaia.json
+themes/kaia-subtle.json
+themes/kaia-old.json
+themes/kaia-subtle-old.json
+references/2026-dark.json
+references/dark_modern.json
+references/dark_plus.json
+references/dark_vs.json
+.vscode/
+CHANGELOG.md
+demo/
+vsc-extension-quickstart.md

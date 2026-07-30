@@ -1,0 +1,26 @@
+{
+  "vscode": {
+    "tag": "1.130.0",
+    "commit": "1b6a188127eeaf9194f945eb6eb89a657e93c54c",
+    "source": "https://github.com/microsoft/vscode",
+    "extractor": "registerColor() TypeScript registrations"
+  },
+  "themes": {
+    "kaia-old": {
+      "workbenchTokens": 282,
+      "tokenColorRules": 132,
+      "coverage": {
+        "assigned": 260,
+        "unresolved": 657
+      }
+    },
+    "kaia-subtle-old": {
+      "workbenchTokens": 282,
+      "tokenColorRules": 132,
+      "coverage": {
+        "assigned": 260,
+        "unresolved": 657
+      }
+    }
+  }
+}

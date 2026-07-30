@@ -1,50 +1,84 @@
 {
-    "name": "kaia-theme-vscode",
-    "displayName": "Kaia Theme",
-    "description": "🎨 A Monokai-inspired theme with a focus on accessible contrast ratios.",
-    "version": "1.5.0",
-    "publisher": "ryan0x200",
-    "icon": "images/logo.png",
-    "license": "MIT",
-    "homepage": "https://github.com/ryan3e0/kaia-theme-vscode",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/ryan3e0/kaia-theme-vscode"
-    },
-    "galleryBanner": {
-        "color": "#1a1a1a",
-        "theme": "dark"
-    },
-    "keywords": [
-        "Theme",
-        "Color Theme",
-        "Kaia",
-        "Kaia Theme",
-        "Dark Theme",
-        "Accessible Theme",
-        "Accessibility",
-        "Contrast",
-        "Monokai",
-        "A11y"
-    ],
-    "engines": {
-        "vscode": "^1.28.0"
-    },
-    "categories": [
-        "Themes"
-    ],
-    "contributes": {
-        "themes": [
-            {
-                "label": "Kaia",
-                "uiTheme": "vs-dark",
-                "path": "./themes/kaia.json"
-            },
-            {
-                "label": "Kaia Subtle",
-                "uiTheme": "vs-dark",
-                "path": "./themes/kaia-subtle.json"
-            }
-        ]
-    }
+  "name": "kaia-theme-vscode",
+  "displayName": "Kaia Theme",
+  "description": "🎨 A Monokai-inspired theme with a focus on accessible contrast ratios.",
+  "version": "1.5.0",
+  "type": "module",
+  "publisher": "ryan0x200",
+  "icon": "images/logo.png",
+  "license": "MIT",
+  "homepage": "https://github.com/ryan3e0/kaia-theme-vscode",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ryan3e0/kaia-theme-vscode"
+  },
+  "galleryBanner": {
+    "color": "#1a1a1a",
+    "theme": "dark"
+  },
+  "keywords": [
+    "Theme",
+    "Color Theme",
+    "Kaia",
+    "Kaia Theme",
+    "Dark Theme",
+    "Accessible Theme",
+    "Accessibility",
+    "Contrast",
+    "Monokai",
+    "A11y"
+  ],
+  "engines": {
+    "vscode": "^1.28.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "scripts": {
+    "compile": "tsc -p tsconfig.json",
+    "build:themes": "npm run compile && node dist/scripts/build-themes.js",
+    "check:generated": "npm run compile && node dist/scripts/check-generated.js",
+    "audit:themes": "npm run compile && node dist/scripts/audit-themes.js",
+    "refresh:vscode-reference": "npm run compile && node dist/scripts/refresh-vscode-reference.js",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "oxlint",
+    "test": "npm run compile && node --test dist/tests/theme.test.js",
+    "check": "npm run format:check && npm run lint && npm run test && npm run build:themes && npm run audit:themes && npm run check:generated && npm pack --dry-run"
+  },
+  "dependencies": {
+    "culori": "4.0.2",
+    "jsonc-parser": "3.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "24.10.1",
+    "@types/culori": "4.0.1",
+    "oxlint": "1.76.0",
+    "prettier": "3.9.6",
+    "typescript": "7.0.2"
+  },
+  "contributes": {
+    "themes": [
+      {
+        "label": "Kaia",
+        "uiTheme": "vs-dark",
+        "path": "./themes/kaia.json"
+      },
+      {
+        "label": "Kaia Subtle",
+        "uiTheme": "vs-dark",
+        "path": "./themes/kaia-subtle.json"
+      },
+      {
+        "label": "Kaia - Old",
+        "uiTheme": "vs-dark",
+        "path": "./themes/kaia-old.json"
+      },
+      {
+        "label": "Kaia Subtle - Old",
+        "uiTheme": "vs-dark",
+        "path": "./themes/kaia-subtle-old.json"
+      }
+    ]
+  }
 }
