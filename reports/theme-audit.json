@@ -174,19 +174,19 @@
         },
         {
           "role": "selectionBackground",
-          "hex": "#37362c",
+          "hex": "#ffffff20",
           "oklch": {
-            "l": 0.330591339847064,
-            "c": 0.01703408042599968,
-            "h": 102.5745725264679
+            "l": 1.0000000000000002,
+            "c": 0
           },
-          "luminance": 0.03632407559313292,
+          "luminance": 1,
           "inSrgb": true,
           "gamutMapped": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
             "mode": "rgb",
-            "r": 0.21568627450980365,
-            "g": 0.21176470588235313,
-            "b": 0.17254901960784322
+            "alpha": 0.12549019607843137
           }
         },
         {
@@ -674,20 +674,54 @@
           }
         },
         {
-          "role": "highlightOverlay",
-          "hex": "#f5f5f526",
+          "role": "highlightSubtleOverlay",
+          "hex": "#ffffff10",
           "oklch": {
-            "l": 0.9701507725365187,
+            "l": 1.0000000000000002,
             "c": 0
           },
-          "luminance": 0.9130986517934191,
+          "luminance": 1,
           "inSrgb": true,
           "gamutMapped": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
             "mode": "rgb",
-            "r": 0.9607843137254907,
-            "g": 0.9607843137254902,
-            "b": 0.9607843137254904,
-            "alpha": 0.14901960784313725
+            "alpha": 0.06274509803921569
+          }
+        },
+        {
+          "role": "highlightOverlay",
+          "hex": "#ffffff14",
+          "oklch": {
+            "l": 1.0000000000000002,
+            "c": 0
+          },
+          "luminance": 1,
+          "inSrgb": true,
+          "gamutMapped": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "mode": "rgb",
+            "alpha": 0.0784313725490196
+          }
+        },
+        {
+          "role": "highlightStrongOverlay",
+          "hex": "#ffffff18",
+          "oklch": {
+            "l": 1.0000000000000002,
+            "c": 0
+          },
+          "luminance": 1,
+          "inSrgb": true,
+          "gamutMapped": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "mode": "rgb",
+            "alpha": 0.09411764705882353
           }
         },
         {
@@ -763,10 +797,19 @@
           "diffEditor.removedTextBorder",
           "diffEditorGutter.insertedLineBackground",
           "diffEditorGutter.removedLineBackground",
+          "editor.findMatchBackground",
+          "editor.findMatchHighlightBackground",
+          "editor.inactiveSelectionBackground",
           "editor.selectionBackground",
           "editor.selectionForeground",
+          "editor.selectionHighlightBackground",
+          "editor.wordHighlightBackground",
+          "editor.wordHighlightStrongBackground",
           "editor.wordHighlightTextBackground",
           "editor.wordHighlightTextBorder",
+          "editorBracketMatch.background",
+          "editorCommentsWidget.rangeActiveBackground",
+          "editorCommentsWidget.rangeBackground",
           "editorError.background",
           "editorGroup.border",
           "editorGroupHeader.border",
@@ -779,6 +822,9 @@
           "panelSectionHeader.border",
           "panelStickyScroll.border",
           "panelTitle.border",
+          "peekViewEditor.matchHighlightBackground",
+          "peekViewResult.matchHighlightBackground",
+          "peekViewResult.selectionBackground",
           "quickInputList.focusForeground",
           "quickInputList.focusHighlightForeground",
           "quickInputList.focusIconForeground",
@@ -804,6 +850,7 @@
           "statusBarItem.remoteForeground",
           "statusBarItem.remoteHoverForeground",
           "terminal.border",
+          "terminal.selectionBackground",
           "terminalOverviewRuler.border",
           "terminalStickyScroll.border",
           "titleBar.border",
@@ -1006,19 +1053,19 @@
         },
         {
           "role": "selectionBackground",
-          "hex": "#37362c",
+          "hex": "#ffffff20",
           "oklch": {
-            "l": 0.330591339847064,
-            "c": 0.01703408042599968,
-            "h": 102.5745725264679
+            "l": 1.0000000000000002,
+            "c": 0
           },
-          "luminance": 0.03632407559313292,
+          "luminance": 1,
           "inSrgb": true,
           "gamutMapped": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
             "mode": "rgb",
-            "r": 0.21568627450980365,
-            "g": 0.21176470588235313,
-            "b": 0.17254901960784322
+            "alpha": 0.12549019607843137
           }
         },
         {
@@ -1506,20 +1553,54 @@
           }
         },
         {
-          "role": "highlightOverlay",
-          "hex": "#f5f5f526",
+          "role": "highlightSubtleOverlay",
+          "hex": "#ffffff10",
           "oklch": {
-            "l": 0.9701507725365187,
+            "l": 1.0000000000000002,
             "c": 0
           },
-          "luminance": 0.9130986517934191,
+          "luminance": 1,
           "inSrgb": true,
           "gamutMapped": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
             "mode": "rgb",
-            "r": 0.9607843137254907,
-            "g": 0.9607843137254902,
-            "b": 0.9607843137254904,
-            "alpha": 0.14901960784313725
+            "alpha": 0.06274509803921569
+          }
+        },
+        {
+          "role": "highlightOverlay",
+          "hex": "#ffffff14",
+          "oklch": {
+            "l": 1.0000000000000002,
+            "c": 0
+          },
+          "luminance": 1,
+          "inSrgb": true,
+          "gamutMapped": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "mode": "rgb",
+            "alpha": 0.0784313725490196
+          }
+        },
+        {
+          "role": "highlightStrongOverlay",
+          "hex": "#ffffff18",
+          "oklch": {
+            "l": 1.0000000000000002,
+            "c": 0
+          },
+          "luminance": 1,
+          "inSrgb": true,
+          "gamutMapped": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "mode": "rgb",
+            "alpha": 0.09411764705882353
           }
         },
         {
@@ -1595,10 +1676,19 @@
           "diffEditor.removedTextBorder",
           "diffEditorGutter.insertedLineBackground",
           "diffEditorGutter.removedLineBackground",
+          "editor.findMatchBackground",
+          "editor.findMatchHighlightBackground",
+          "editor.inactiveSelectionBackground",
           "editor.selectionBackground",
           "editor.selectionForeground",
+          "editor.selectionHighlightBackground",
+          "editor.wordHighlightBackground",
+          "editor.wordHighlightStrongBackground",
           "editor.wordHighlightTextBackground",
           "editor.wordHighlightTextBorder",
+          "editorBracketMatch.background",
+          "editorCommentsWidget.rangeActiveBackground",
+          "editorCommentsWidget.rangeBackground",
           "editorError.background",
           "editorGroup.border",
           "editorGroupHeader.border",
@@ -1611,6 +1701,9 @@
           "panelSectionHeader.border",
           "panelStickyScroll.border",
           "panelTitle.border",
+          "peekViewEditor.matchHighlightBackground",
+          "peekViewResult.matchHighlightBackground",
+          "peekViewResult.selectionBackground",
           "quickInputList.focusForeground",
           "quickInputList.focusHighlightForeground",
           "quickInputList.focusIconForeground",
@@ -1636,6 +1729,7 @@
           "statusBarItem.remoteForeground",
           "statusBarItem.remoteHoverForeground",
           "terminal.border",
+          "terminal.selectionBackground",
           "terminalOverviewRuler.border",
           "terminalStickyScroll.border",
           "titleBar.border",
@@ -1838,19 +1932,19 @@
         },
         {
           "role": "selectionBackground",
-          "hex": "#37362c",
+          "hex": "#ffffff20",
           "oklch": {
-            "l": 0.330591339847064,
-            "c": 0.01703408042599968,
-            "h": 102.5745725264679
+            "l": 1.0000000000000002,
+            "c": 0
           },
-          "luminance": 0.03632407559313292,
+          "luminance": 1,
           "inSrgb": true,
           "gamutMapped": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
             "mode": "rgb",
-            "r": 0.21568627450980365,
-            "g": 0.21176470588235313,
-            "b": 0.17254901960784322
+            "alpha": 0.12549019607843137
           }
         },
         {
@@ -2338,20 +2432,54 @@
           }
         },
         {
-          "role": "highlightOverlay",
-          "hex": "#f5f5f526",
+          "role": "highlightSubtleOverlay",
+          "hex": "#ffffff10",
           "oklch": {
-            "l": 0.9701507725365187,
+            "l": 1.0000000000000002,
             "c": 0
           },
-          "luminance": 0.9130986517934191,
+          "luminance": 1,
           "inSrgb": true,
           "gamutMapped": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
             "mode": "rgb",
-            "r": 0.9607843137254907,
-            "g": 0.9607843137254902,
-            "b": 0.9607843137254904,
-            "alpha": 0.14901960784313725
+            "alpha": 0.06274509803921569
+          }
+        },
+        {
+          "role": "highlightOverlay",
+          "hex": "#ffffff14",
+          "oklch": {
+            "l": 1.0000000000000002,
+            "c": 0
+          },
+          "luminance": 1,
+          "inSrgb": true,
+          "gamutMapped": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "mode": "rgb",
+            "alpha": 0.0784313725490196
+          }
+        },
+        {
+          "role": "highlightStrongOverlay",
+          "hex": "#ffffff18",
+          "oklch": {
+            "l": 1.0000000000000002,
+            "c": 0
+          },
+          "luminance": 1,
+          "inSrgb": true,
+          "gamutMapped": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "mode": "rgb",
+            "alpha": 0.09411764705882353
           }
         },
         {
@@ -2427,10 +2555,19 @@
           "diffEditor.removedTextBorder",
           "diffEditorGutter.insertedLineBackground",
           "diffEditorGutter.removedLineBackground",
+          "editor.findMatchBackground",
+          "editor.findMatchHighlightBackground",
+          "editor.inactiveSelectionBackground",
           "editor.selectionBackground",
           "editor.selectionForeground",
+          "editor.selectionHighlightBackground",
+          "editor.wordHighlightBackground",
+          "editor.wordHighlightStrongBackground",
           "editor.wordHighlightTextBackground",
           "editor.wordHighlightTextBorder",
+          "editorBracketMatch.background",
+          "editorCommentsWidget.rangeActiveBackground",
+          "editorCommentsWidget.rangeBackground",
           "editorError.background",
           "editorGroup.border",
           "editorGroupHeader.border",
@@ -2443,6 +2580,9 @@
           "panelSectionHeader.border",
           "panelStickyScroll.border",
           "panelTitle.border",
+          "peekViewEditor.matchHighlightBackground",
+          "peekViewResult.matchHighlightBackground",
+          "peekViewResult.selectionBackground",
           "quickInputList.focusForeground",
           "quickInputList.focusHighlightForeground",
           "quickInputList.focusIconForeground",
@@ -2468,6 +2608,7 @@
           "statusBarItem.remoteForeground",
           "statusBarItem.remoteHoverForeground",
           "terminal.border",
+          "terminal.selectionBackground",
           "terminalOverviewRuler.border",
           "terminalStickyScroll.border",
           "titleBar.border",

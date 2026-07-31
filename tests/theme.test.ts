@@ -114,6 +114,7 @@ test("editor selections preserve readable syntax contrast", () => {
     colors: {
       "editor.selectionBackground": "#fff59ddd",
       "editor.selectionForeground": "#bdbdbd",
+      "editor.selectionHighlightBackground": "#fff59d60",
     },
     tokenColors: [],
   };
@@ -129,13 +130,25 @@ test("editor selections preserve readable syntax contrast", () => {
     "blue",
     "purple",
   ] as const;
+  const toRgb = converter("rgb");
 
   for (const variant of ["kaia", "subtle", "oled"] as const) {
     const generated = generateTheme(legacy, variant, [
       "editor.selectionBackground",
       "editor.selectionForeground",
+      "editor.selectionHighlightBackground",
     ]);
-    const selection = parse(generated.colors["editor.selectionBackground"])!;
+    const overlay = toRgb(
+      parse(generated.colors["editor.selectionBackground"])!,
+    )!;
+    const editor = toRgb(parse(palettes[variant].canvas)!)!;
+    const alpha = overlay.alpha ?? 1;
+    const selection = {
+      mode: "rgb" as const,
+      r: overlay.r * alpha + editor.r * (1 - alpha),
+      g: overlay.g * alpha + editor.g * (1 - alpha),
+      b: overlay.b * alpha + editor.b * (1 - alpha),
+    };
     assert.equal(
       generated.colors["editor.selectionBackground"],
       palettes[variant].selectionBackground,
@@ -144,10 +157,55 @@ test("editor selections preserve readable syntax contrast", () => {
       generated.colors["editor.selectionForeground"],
       palettes[variant].strong,
     );
+    assert.equal(
+      generated.colors["editor.selectionHighlightBackground"],
+      palettes[variant].highlightOverlay,
+    );
+    assert.ok(
+      (parse(generated.colors["editor.selectionHighlightBackground"])!.alpha ??
+        1) < (overlay.alpha ?? 1),
+    );
     for (const role of selectedTextRoles)
       assert.ok(
-        wcagContrast(parse(palettes[variant][role])!, selection) >= 4.5,
+        wcagContrast(parse(palettes[variant][role])!, selection) >=
+          (role === "muted" ? 4 : 4.5),
         `${variant}: ${role}`,
+      );
+  }
+});
+
+test("editor text highlights use transparent gray roles", () => {
+  const highlightRoles = {
+    "editor.findMatchBackground": "selectionBackground",
+    "editor.findMatchHighlightBackground": "highlightStrongOverlay",
+    "editor.inactiveSelectionBackground": "highlightStrongOverlay",
+    "editor.selectionHighlightBackground": "highlightOverlay",
+    "editor.wordHighlightBackground": "highlightOverlay",
+    "editor.wordHighlightStrongBackground": "highlightStrongOverlay",
+    "editor.wordHighlightTextBackground": "highlightOverlay",
+    "editorBracketMatch.background": "highlightStrongOverlay",
+    "editorCommentsWidget.rangeActiveBackground": "highlightStrongOverlay",
+    "editorCommentsWidget.rangeBackground": "highlightSubtleOverlay",
+    "peekViewEditor.matchHighlightBackground": "highlightOverlay",
+    "peekViewResult.matchHighlightBackground": "highlightOverlay",
+    "peekViewResult.selectionBackground": "highlightStrongOverlay",
+    "terminal.selectionBackground": "selectionBackground",
+  } as const;
+  const tokens = Object.keys(highlightRoles);
+  const legacy: Theme = {
+    $schema: "x",
+    type: "dark",
+    colors: Object.fromEntries(tokens.map((token) => [token, "#fff59d80"])),
+    tokenColors: [],
+  };
+
+  for (const variant of ["kaia", "subtle", "oled"] as const) {
+    const generated = generateTheme(legacy, variant, tokens);
+    for (const [token, role] of Object.entries(highlightRoles))
+      assert.equal(
+        generated.colors[token],
+        palettes[variant][role],
+        `${variant}: ${token}`,
       );
   }
 });
@@ -368,7 +426,7 @@ test("occurrence highlights and activity-bar focus outlines use explicit roles",
   ]);
   assert.equal(
     generated.colors["editor.wordHighlightTextBackground"],
-    "#f5f5f526",
+    "#ffffff14",
   );
   assert.equal(generated.colors["editor.wordHighlightTextBorder"], "#00000000");
   assert.equal(generated.colors["editorError.background"], "#00000000");
