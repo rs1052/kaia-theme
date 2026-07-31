@@ -11,6 +11,7 @@ import {
   classifyReferenceColor,
   isReferenceEquivalent,
   palettes,
+  structuralBorderTokens,
   tokenRoleOverrides,
 } from "../src/semantic.js";
 import {
@@ -34,6 +35,7 @@ const inventory = await readJson<{
 const reference = await read2026DarkReference();
 const toOklch = converter("oklch");
 const inSrgb = inGamut("rgb");
+const structuralBorders = new Set(structuralBorderTokens);
 const report: Record<string, unknown> = {
   vscode: inventory.vscode,
   themes: {},
@@ -43,9 +45,12 @@ const baseline: Record<string, unknown> = {
   themes: {},
 };
 let failed = false;
-for (const name of ["kaia", "kaia-subtle"]) {
+for (const [name, variant, oldName] of [
+  ["kaia", "kaia", "kaia-old"],
+  ["kaia-subtle", "subtle", "kaia-subtle-old"],
+  ["kaia-oled", "oled", "kaia-old"],
+] as const) {
   const theme = await readJson<Generated>(`themes/${name}.json`);
-  const oldName = name === "kaia" ? "kaia-old" : "kaia-subtle-old";
   const oldTheme = await readThemeJsonc<Generated>(`themes/${oldName}.json`);
   const uncovered = inventory.tokens.filter(
     (token) => !(token in theme.colors),
@@ -65,7 +70,6 @@ for (const name of ["kaia", "kaia-subtle"]) {
   }));
   const failures = contrasts.filter(({ ratio }) => ratio < 3);
   if (uncovered.length || failures.length) failed = true;
-  const variant = name === "kaia" ? "kaia" : "subtle";
   const palette = Object.entries(palettes[variant]).map(([role, hex]) => {
     const color = parse(hex)!;
     const oklch = toOklch(color)!;
@@ -88,11 +92,12 @@ for (const name of ["kaia", "kaia-subtle"]) {
     return [{ token, expected, actual, source: referenceColor.source }];
   });
   const intentionalOverrides = referenceClassifications.filter(
-    ({ token }) => token in tokenRoleOverrides,
+    ({ token }) => token in tokenRoleOverrides || structuralBorders.has(token),
   );
   const mismatches = referenceClassifications.filter(
     ({ token }) =>
       !(token in tokenRoleOverrides) &&
+      !structuralBorders.has(token) &&
       !isReferenceEquivalent(
         token,
         matchReferenceColor(token, reference).value,

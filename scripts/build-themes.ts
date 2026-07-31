@@ -15,6 +15,7 @@ const reference = await read2026DarkReference();
 const builds = [
   ["kaia", "themes/kaia-old.json", "themes/kaia.json"],
   ["subtle", "themes/kaia-old.json", "themes/kaia-subtle.json"],
+  ["oled", "themes/kaia-old.json", "themes/kaia-oled.json"],
 ] as const;
 await mkdir(file("themes"), { recursive: true });
 for (const [variant, input, output] of builds) {

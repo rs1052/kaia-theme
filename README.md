@@ -16,9 +16,29 @@ A Monokai-inspired theme for Visual Studio Code with a focus on accessible contr
 1.  Click **Reload** to reload Visual Studio Code to make the extension available.
 1.  From the gear menu or the Show All Commands (CTRL + SHIFT + P) menu select: Color Theme > **Kaia**.
 
+### Test a local build on Windows
+
+Install [Node.js 20](https://nodejs.org/) and make sure the Visual Studio Code `code` command is available, then run these commands from PowerShell in the repository directory:
+
+```powershell
+npm ci
+npm run package:vsix
+code --install-extension .\kaia-theme-vscode.vsix --force
+```
+
+Alternatively, after running `npm run package:vsix`, open the Extensions view in Visual Studio Code, select the `...` menu, choose **Install from VSIX...**, and select `kaia-theme-vscode.vsix`.
+
+Reload Visual Studio Code when prompted. Open the Command Palette with `Ctrl+Shift+P`, run **Preferences: Color Theme**, and test **Kaia**, **Kaia Subtle**, and **Kaia OLED**. To test a new build, run the package and install commands again; `--force` replaces the installed local version.
+
+To remove the test installation:
+
+```powershell
+code --uninstall-extension ryan0x200.kaia-theme-vscode
+```
+
 ## Theme variants
 
-- **Kaia** and **Kaia Subtle** are generated dark themes.
+- **Kaia**, **Kaia Subtle**, and **Kaia OLED** are generated dark themes. OLED uses true black for every neutral workbench surface, with structural borders retained for separation.
 - **Kaia - Old** and **Kaia Subtle - Old** retain the original extension theme bytes for comparison and rollback.
 
 ## Development

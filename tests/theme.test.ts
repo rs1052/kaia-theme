@@ -8,8 +8,10 @@ import {
   classifyReferenceColor,
   isReferenceEquivalent,
   mapReferenceColor,
+  oledSurfaceRoles,
   palettes,
   roleForToken,
+  structuralBorderTokens,
   transformHex,
 } from "../src/semantic.js";
 import {
@@ -22,6 +24,23 @@ import { readThemeJsonc } from "../scripts/common.js";
 test("semantic source is hexadecimal and parses with Culori", () => {
   for (const palette of Object.values(palettes))
     for (const color of Object.values(palette)) assert.ok(parse(color));
+});
+
+test("OLED neutral surfaces are uniformly true black", () => {
+  assert.deepEqual(oledSurfaceRoles, {
+    deepest: "#000000",
+    border: "#000000",
+    chrome: "#000000",
+    canvas: "#000000",
+    surfaceRaised: "#000000",
+    filter: "#000000",
+    active: "#000000",
+  });
+  for (const [role, color] of Object.entries(oledSurfaceRoles)) {
+    assert.equal(palettes.oled[role as keyof typeof palettes.oled], color);
+    assert.equal(color, "#000000", role);
+  }
+  assert.equal(palettes.oled.onAccent, "#000000");
 });
 
 test("semantic generation provides ANSI and semantic token mappings", () => {
@@ -45,6 +64,71 @@ test("semantic generation provides ANSI and semantic token mappings", () => {
       parse(generated.colors["editor.background"])!,
     ) >= 4.5,
   );
+});
+
+test("OLED generation resolves legacy canvas aliases to true black", () => {
+  const legacy: Theme = {
+    $schema: "x",
+    type: "dark",
+    colors: {
+      "editor.background": "#212121",
+      "dropdown.background": "#212121",
+    },
+    tokenColors: [],
+  };
+  const generated = generateTheme(legacy, "oled", [
+    "editor.background",
+    "dropdown.background",
+  ]);
+  assert.equal(generated.name, "Kaia OLED");
+  assert.equal(generated.colors["editor.background"], "#000000");
+  assert.equal(generated.colors["dropdown.background"], "#000000");
+});
+
+test("structural workbench borders are visible in every generated variant", () => {
+  const legacy: Theme = {
+    $schema: "x",
+    type: "dark",
+    colors: Object.fromEntries(
+      structuralBorderTokens.map((token) => [token, "#121212"]),
+    ),
+    tokenColors: [],
+  };
+  for (const variant of ["kaia", "subtle", "oled"] as const) {
+    const generated = generateTheme(legacy, variant, [
+      ...structuralBorderTokens,
+    ]);
+    for (const token of structuralBorderTokens)
+      assert.equal(
+        generated.colors[token],
+        palettes[variant].structuralBorder,
+        `${variant}: ${token}`,
+      );
+  }
+});
+
+test("window borders use neutral gray instead of the accent", () => {
+  const legacy: Theme = {
+    $schema: "x",
+    type: "dark",
+    colors: {},
+    tokenColors: [],
+  };
+  for (const variant of ["kaia", "subtle", "oled"] as const) {
+    const generated = generateTheme(legacy, variant, [
+      "window.activeBorder",
+      "window.inactiveBorder",
+    ]);
+    assert.equal(
+      generated.colors["window.activeBorder"],
+      palettes[variant].windowBorder,
+    );
+    assert.equal(
+      generated.colors["window.inactiveBorder"],
+      palettes[variant].windowBorder,
+    );
+    assert.equal(palettes[variant].windowBorder, "#3a3a3a");
+  }
 });
 
 test("token fallback classification is deterministic", () => {
@@ -281,7 +365,7 @@ test("diff line and gutter backgrounds are translucent overlays", () => {
     "diffEditorGutter.insertedLineBackground",
     "diffEditorGutter.removedLineBackground",
   ];
-  for (const variant of ["kaia", "subtle"] as const) {
+  for (const variant of ["kaia", "subtle", "oled"] as const) {
     const generated = generateTheme(legacy, variant, tokens);
     for (const token of tokens) {
       const color = generated.colors[token];
@@ -388,7 +472,7 @@ test("bright workbench surfaces use dark contrasting foregrounds", () => {
       ]),
     ),
   };
-  for (const variant of ["kaia", "subtle"] as const) {
+  for (const variant of ["kaia", "subtle", "oled"] as const) {
     const generated = generateTheme(legacy, variant, tokens, reference);
     for (const [foreground, background] of pairs)
       assert.ok(
@@ -446,7 +530,7 @@ test("preserved legacy themes parse as JSONC without being rewritten", async () 
 
 test("generated theme colors are valid six- or eight-digit hex", async () => {
   const legacy = await readThemeJsonc<Theme>("themes/kaia-old.json");
-  for (const variant of ["kaia", "subtle"] as const) {
+  for (const variant of ["kaia", "subtle", "oled"] as const) {
     const generated = generateTheme(legacy, variant, [
       "editor.background",
       "editor.foreground",

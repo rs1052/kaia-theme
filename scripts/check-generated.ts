@@ -16,6 +16,7 @@ let failed = false;
 for (const [variant, oldPath, output] of [
   ["kaia", "themes/kaia-old.json", "themes/kaia.json"],
   ["subtle", "themes/kaia-old.json", "themes/kaia-subtle.json"],
+  ["oled", "themes/kaia-old.json", "themes/kaia-oled.json"],
 ] as const) {
   const expected = stableJson(
     generateTheme(

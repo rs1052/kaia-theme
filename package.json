@@ -44,6 +44,7 @@
     "format:check": "prettier --check .",
     "lint": "oxlint",
     "test": "npm run compile && node --test dist/tests/theme.test.js",
+    "package:vsix": "npm run build:themes && vsce package --out kaia-theme-vscode.vsix",
     "check": "npm run format:check && npm run lint && npm run test && npm run build:themes && npm run audit:themes && npm run check:generated && npm pack --dry-run"
   },
   "dependencies": {
@@ -51,8 +52,9 @@
     "jsonc-parser": "3.3.1"
   },
   "devDependencies": {
-    "@types/node": "24.10.1",
     "@types/culori": "4.0.1",
+    "@types/node": "24.10.1",
+    "@vscode/vsce": "3.9.2",
     "oxlint": "1.76.0",
     "prettier": "3.9.6",
     "typescript": "7.0.2"
@@ -68,6 +70,11 @@
         "label": "Kaia Subtle",
         "uiTheme": "vs-dark",
         "path": "./themes/kaia-subtle.json"
+      },
+      {
+        "label": "Kaia OLED",
+        "uiTheme": "vs-dark",
+        "path": "./themes/kaia-oled.json"
       },
       {
         "label": "Kaia - Old",

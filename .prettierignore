@@ -2,6 +2,7 @@ node_modules/
 dist/
 themes/kaia.json
 themes/kaia-subtle.json
+themes/kaia-oled.json
 themes/kaia-old.json
 themes/kaia-subtle-old.json
 references/2026-dark.json

@@ -8,7 +8,7 @@ import {
   wcagLuminance,
 } from "culori";
 
-export type Variant = "kaia" | "subtle";
+export type Variant = "kaia" | "subtle" | "oled";
 
 /** Hexadecimal source palette extracted from the preserved Kaia theme. */
 export const basePalette = {
@@ -21,6 +21,8 @@ export const basePalette = {
   filter: "#373737",
   active: "#424242",
   rangeBorder: "#505050",
+  structuralBorder: "#505050",
+  windowBorder: "#3a3a3a",
   subtle: "#616161",
   muted: "#9e9e9e",
   secondary: "#bdbdbd",
@@ -71,6 +73,7 @@ export const variants = {
       syntax: { lightnessDelta: 0.045, chromaMultiplier: 0.68 },
     },
   },
+  oled: { label: "Kaia OLED", transform: {} },
 } as const;
 
 const toOklch = converter("oklch");
@@ -112,9 +115,30 @@ function createSubtlePalette(): Record<Role, string> {
   return result;
 }
 
+export const oledSurfaceRoles: Readonly<Partial<Record<Role, string>>> = {
+  deepest: "#000000",
+  border: "#000000",
+  chrome: "#000000",
+  canvas: "#000000",
+  surfaceRaised: "#000000",
+  filter: "#000000",
+  active: "#000000",
+};
+
+function createOledPalette(): Record<Role, string> {
+  return {
+    ...basePalette,
+    ...oledSurfaceRoles,
+    // This role shares the legacy canvas hex; keeping both black preserves
+    // OLED surfaces while retaining maximum contrast on bright accents.
+    onAccent: "#000000",
+  };
+}
+
 export const palettes: Record<Variant, Record<Role, string>> = {
   kaia: { ...basePalette },
   subtle: createSubtlePalette(),
+  oled: createOledPalette(),
 };
 
 export const ansiRoles: Readonly<Record<string, Role>> = {
@@ -176,7 +200,36 @@ export const tokenRoleOverrides: Readonly<Record<string, Role>> = {
   "scmGraph.historyItemHoverAdditionsForeground": "green",
   "scmGraph.historyItemHoverDeletionsForeground": "red",
   "scmGraph.historyItemHoverLabelForeground": "onAccent",
+  "window.activeBorder": "windowBorder",
+  "window.inactiveBorder": "windowBorder",
 };
+
+/** Dividers that establish the workbench layout rather than decorate controls. */
+export const structuralBorderTokens: readonly string[] = [
+  "activityBar.border",
+  "agentsPanel.border",
+  "editorGroup.border",
+  "editorGroupHeader.border",
+  "editorGroupHeader.tabsBorder",
+  "panel.border",
+  "panelSection.border",
+  "panelSectionHeader.border",
+  "panelStickyScroll.border",
+  "panelTitle.border",
+  "sideBar.border",
+  "sideBarActivityBarTop.border",
+  "sideBarSectionHeader.border",
+  "sideBarStickyScroll.border",
+  "sideBarTitle.border",
+  "statusBar.border",
+  "statusBar.debuggingBorder",
+  "statusBar.noFolderBorder",
+  "terminal.border",
+  "terminalOverviewRuler.border",
+  "terminalStickyScroll.border",
+  "titleBar.border",
+  "widget.border",
+];
 
 export const foregroundSurfacePairs: Readonly<Record<string, string>> = {
   "activityBarBadge.foreground": "activityBarBadge.background",

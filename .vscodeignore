@@ -1,6 +1,10 @@
 .vscode/**
 .vscode-test/**
+.github/**
 .gitignore
+node_modules/**
+package-lock.json
+tsconfig.json
 vsc-extension-quickstart.md
 src/**
 scripts/**

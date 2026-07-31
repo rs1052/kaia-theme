@@ -7,9 +7,11 @@ import {
   mapReferenceColor,
   palettes,
   roleForToken,
+  structuralBorderTokens,
   tokenRoleOverrides,
   type Role,
   type Variant,
+  variants,
 } from "./semantic.js";
 import {
   matchReferenceColor,
@@ -31,6 +33,8 @@ const roleByLegacyHex = Object.fromEntries(
     .filter(([, hex]) => hex.length === 7)
     .map(([role, hex]) => [hex.toLowerCase(), role as Role]),
 ) as Record<string, Role>;
+
+const structuralBorders = new Set(structuralBorderTokens);
 
 function semanticize(value: unknown, variant: Variant): unknown {
   if (typeof value !== "string") return value;
@@ -66,7 +70,10 @@ export function generateTheme(
     ]),
   );
   for (const token of registeredTokens) {
-    const override = tokenRoleOverrides[token] ?? ansiRoles[token];
+    const override =
+      tokenRoleOverrides[token] ??
+      ansiRoles[token] ??
+      (structuralBorders.has(token) ? "structuralBorder" : undefined);
     if (override !== undefined) {
       colors[token] = palettes[variant][override];
       continue;
@@ -101,7 +108,7 @@ export function generateTheme(
         palettes[variant],
       );
   return {
-    ...(variant === "subtle" ? { name: "Kaia Subtle" } : { name: "Kaia" }),
+    name: variants[variant].label,
     $schema: "vscode://schemas/color-theme",
     type: "dark",
     semanticHighlighting: true,
