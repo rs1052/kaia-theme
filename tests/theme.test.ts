@@ -107,6 +107,51 @@ test("structural workbench borders are visible in every generated variant", () =
   }
 });
 
+test("editor selections preserve readable syntax contrast", () => {
+  const legacy: Theme = {
+    $schema: "x",
+    type: "dark",
+    colors: {
+      "editor.selectionBackground": "#fff59ddd",
+      "editor.selectionForeground": "#bdbdbd",
+    },
+    tokenColors: [],
+  };
+  const selectedTextRoles = [
+    "muted",
+    "normal",
+    "strong",
+    "red",
+    "orange",
+    "accent",
+    "green",
+    "cyan",
+    "blue",
+    "purple",
+  ] as const;
+
+  for (const variant of ["kaia", "subtle", "oled"] as const) {
+    const generated = generateTheme(legacy, variant, [
+      "editor.selectionBackground",
+      "editor.selectionForeground",
+    ]);
+    const selection = parse(generated.colors["editor.selectionBackground"])!;
+    assert.equal(
+      generated.colors["editor.selectionBackground"],
+      palettes[variant].selectionBackground,
+    );
+    assert.equal(
+      generated.colors["editor.selectionForeground"],
+      palettes[variant].strong,
+    );
+    for (const role of selectedTextRoles)
+      assert.ok(
+        wcagContrast(parse(palettes[variant][role])!, selection) >= 4.5,
+        `${variant}: ${role}`,
+      );
+  }
+});
+
 test("window borders use neutral gray instead of the accent", () => {
   const legacy: Theme = {
     $schema: "x",

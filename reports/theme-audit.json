@@ -158,18 +158,35 @@
         },
         {
           "role": "structuralBorder",
-          "hex": "#505050",
+          "hex": "#333333",
           "oklch": {
-            "l": 0.43128123417619596,
+            "l": 0.3210925111636326,
             "c": 0
           },
-          "luminance": 0.08021982031446832,
+          "luminance": 0.033104766570885055,
           "inSrgb": true,
           "gamutMapped": {
             "mode": "rgb",
-            "r": 0.31372549019607854,
-            "g": 0.3137254901960784,
-            "b": 0.3137254901960785
+            "r": 0.20000000000000012,
+            "g": 0.19999999999999996,
+            "b": 0.2
+          }
+        },
+        {
+          "role": "selectionBackground",
+          "hex": "#37362c",
+          "oklch": {
+            "l": 0.330591339847064,
+            "c": 0.01703408042599968,
+            "h": 102.5745725264679
+          },
+          "luminance": 0.03632407559313292,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.21568627450980365,
+            "g": 0.21176470588235313,
+            "b": 0.17254901960784322
           }
         },
         {
@@ -746,6 +763,8 @@
           "diffEditor.removedTextBorder",
           "diffEditorGutter.insertedLineBackground",
           "diffEditorGutter.removedLineBackground",
+          "editor.selectionBackground",
+          "editor.selectionForeground",
           "editor.wordHighlightTextBackground",
           "editor.wordHighlightTextBorder",
           "editorError.background",
@@ -971,18 +990,35 @@
         },
         {
           "role": "structuralBorder",
-          "hex": "#505050",
+          "hex": "#333333",
           "oklch": {
-            "l": 0.43128123417619596,
+            "l": 0.3210925111636326,
             "c": 0
           },
-          "luminance": 0.08021982031446832,
+          "luminance": 0.033104766570885055,
           "inSrgb": true,
           "gamutMapped": {
             "mode": "rgb",
-            "r": 0.31372549019607854,
-            "g": 0.3137254901960784,
-            "b": 0.3137254901960785
+            "r": 0.20000000000000012,
+            "g": 0.19999999999999996,
+            "b": 0.2
+          }
+        },
+        {
+          "role": "selectionBackground",
+          "hex": "#37362c",
+          "oklch": {
+            "l": 0.330591339847064,
+            "c": 0.01703408042599968,
+            "h": 102.5745725264679
+          },
+          "luminance": 0.03632407559313292,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.21568627450980365,
+            "g": 0.21176470588235313,
+            "b": 0.17254901960784322
           }
         },
         {
@@ -1559,6 +1595,8 @@
           "diffEditor.removedTextBorder",
           "diffEditorGutter.insertedLineBackground",
           "diffEditorGutter.removedLineBackground",
+          "editor.selectionBackground",
+          "editor.selectionForeground",
           "editor.wordHighlightTextBackground",
           "editor.wordHighlightTextBorder",
           "editorError.background",
@@ -1784,18 +1822,35 @@
         },
         {
           "role": "structuralBorder",
-          "hex": "#505050",
+          "hex": "#333333",
           "oklch": {
-            "l": 0.43128123417619596,
+            "l": 0.3210925111636326,
             "c": 0
           },
-          "luminance": 0.08021982031446832,
+          "luminance": 0.033104766570885055,
           "inSrgb": true,
           "gamutMapped": {
             "mode": "rgb",
-            "r": 0.31372549019607854,
-            "g": 0.3137254901960784,
-            "b": 0.3137254901960785
+            "r": 0.20000000000000012,
+            "g": 0.19999999999999996,
+            "b": 0.2
+          }
+        },
+        {
+          "role": "selectionBackground",
+          "hex": "#37362c",
+          "oklch": {
+            "l": 0.330591339847064,
+            "c": 0.01703408042599968,
+            "h": 102.5745725264679
+          },
+          "luminance": 0.03632407559313292,
+          "inSrgb": true,
+          "gamutMapped": {
+            "mode": "rgb",
+            "r": 0.21568627450980365,
+            "g": 0.21176470588235313,
+            "b": 0.17254901960784322
           }
         },
         {
@@ -2372,6 +2427,8 @@
           "diffEditor.removedTextBorder",
           "diffEditorGutter.insertedLineBackground",
           "diffEditorGutter.removedLineBackground",
+          "editor.selectionBackground",
+          "editor.selectionForeground",
           "editor.wordHighlightTextBackground",
           "editor.wordHighlightTextBorder",
           "editorError.background",
