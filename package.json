@@ -22,9 +22,6 @@
     "Kaia",
     "Kaia Theme",
     "Dark Theme",
-    "Light Theme",
-    "Grayscale Theme",
-    "Monochrome",
     "OLED",
     "Accessible Theme",
     "Accessibility",
@@ -79,26 +76,6 @@
         "label": "Kaia OLED",
         "uiTheme": "vs-dark",
         "path": "./themes/kaia-oled.json"
-      },
-      {
-        "label": "Kaia Light",
-        "uiTheme": "vs",
-        "path": "./themes/kaia-light.json"
-      },
-      {
-        "label": "Kaia Grayscale",
-        "uiTheme": "vs-dark",
-        "path": "./themes/kaia-grayscale.json"
-      },
-      {
-        "label": "Kaia Grayscale OLED",
-        "uiTheme": "vs-dark",
-        "path": "./themes/kaia-grayscale-oled.json"
-      },
-      {
-        "label": "Kaia Grayscale Light",
-        "uiTheme": "vs",
-        "path": "./themes/kaia-grayscale-light.json"
       },
       {
         "label": "Kaia - Old",

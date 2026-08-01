@@ -3,15 +3,9 @@ dist/
 themes/kaia.json
 themes/kaia-subtle.json
 themes/kaia-oled.json
-themes/kaia-light.json
-themes/kaia-grayscale.json
-themes/kaia-grayscale-oled.json
-themes/kaia-grayscale-light.json
 themes/kaia-old.json
 themes/kaia-subtle-old.json
 references/2026-dark.json
-references/2026-light.json
-references/light_modern.json
 references/dark_modern.json
 references/dark_plus.json
 references/dark_vs.json

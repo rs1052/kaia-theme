@@ -39,13 +39,11 @@ code --uninstall-extension ryan0x200.kaia-theme-vscode
 ## Theme variants
 
 - **Kaia**, **Kaia Subtle**, and **Kaia OLED** are generated dark themes. OLED uses true black for every neutral workbench surface, with structural borders retained for separation.
-- **Kaia Light** uses a layered Zinc-gray workbench, vivid contrast-checked Kaia syntax, and dark translucent selection overlays.
-- **Kaia Grayscale**, **Kaia Grayscale OLED**, and **Kaia Grayscale Light** use neutral syntax and ordinary UI while retaining chroma only for diagnostic, status, and terminal meaning. The OLED variant keeps required surfaces black.
 - **Kaia - Old** and **Kaia Subtle - Old** retain the original extension theme bytes for comparison and rollback.
 
 ## Development
 
-The generated themes are derived from the typed `VariantDefinition` registry and hexadecimal semantic roles in `src/`, plus committed VS Code 1.130.0 dark and light workbench references. `culori` validates color parsing and WCAG contrast in the audit.
+The generated themes are derived from the typed `VariantDefinition` registry and hexadecimal semantic roles in `src/`, plus the committed VS Code 1.130.0 dark workbench reference. `culori` validates color parsing and WCAG contrast in the audit.
 
 ```sh
 npm ci

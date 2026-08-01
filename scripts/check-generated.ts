@@ -4,7 +4,6 @@ import { variantDefinitions } from "../src/variants.js";
 import {
   file,
   read2026DarkReference,
-  read2026LightReference,
   readJson,
   readThemeJsonc,
   stableJson,
@@ -13,10 +12,7 @@ import {
 const inventory = await readJson<{ tokens: string[] }>(
   "references/vscode-1.130.0-workbench-colors.json",
 );
-const references = {
-  dark: await read2026DarkReference(),
-  light: await read2026LightReference(),
-};
+const reference = await read2026DarkReference();
 let failed = false;
 const packageJson = await readJson<{
   contributes: { themes: { label: string; uiTheme: string; path: string }[] };
@@ -48,7 +44,7 @@ for (const definition of variantDefinitions) {
       await readThemeJsonc<Theme>(definition.legacySource),
       definition.id,
       inventory.tokens,
-      references[definition.reference],
+      reference,
     ),
   );
   if (expected !== (await readFile(file(definition.output), "utf8"))) {

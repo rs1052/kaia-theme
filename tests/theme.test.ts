@@ -33,68 +33,12 @@ test("semantic source is hexadecimal and parses with Culori", () => {
 test("variant registry defines every generated theme with the correct polarity", () => {
   assert.deepEqual(
     variantDefinitions.map(({ id }) => id),
-    [
-      "kaia",
-      "subtle",
-      "oled",
-      "light",
-      "grayscale",
-      "grayscaleOled",
-      "grayscaleLight",
-    ],
+    ["kaia", "subtle", "oled"],
   );
   for (const definition of variantDefinitions) {
     assert.match(definition.output, /^themes\/kaia.*\.json$/);
-    assert.equal(
-      definition.themeType === "light",
-      definition.id === "light" || definition.id === "grayscaleLight",
-    );
+    assert.equal(definition.themeType, "dark");
   }
-});
-
-test("light generation uses its neutral palette and dark selection overlays", () => {
-  const generated = generateTheme(
-    {
-      $schema: "x",
-      type: "dark",
-      colors: { "editor.background": "#212121" },
-      tokenColors: [],
-    },
-    "light",
-    ["editor.background", "editor.selectionBackground"],
-  );
-  assert.equal(generated.type, "light");
-  assert.equal(generated.colors["editor.background"], palettes.light.canvas);
-  assert.notEqual(generated.colors["editor.background"], palettes.kaia.canvas);
-  assert.ok(
-    (parse(generated.colors["editor.selectionBackground"])?.alpha ?? 1) < 1,
-  );
-});
-
-test("grayscale ordinary syntax is achromatic while diagnostics remain explicit", () => {
-  const generated = generateTheme(
-    {
-      $schema: "x",
-      type: "dark",
-      colors: {},
-      tokenColors: [
-        { scope: "keyword", settings: { foreground: "#ef9a9a" } },
-        { scope: "invalid.illegal", settings: { foreground: "#ef9a9a" } },
-      ],
-    },
-    "grayscale",
-    [],
-  );
-  const rules = generated.tokenColors as { settings: { foreground: string } }[];
-  assert.equal(converter("oklch")(parse(rules[0].settings.foreground)!)?.c, 0);
-  assert.notEqual(rules[1].settings.foreground, rules[0].settings.foreground);
-  assert.ok(
-    new Set(
-      ["deepest", "chrome", "canvas", "surfaceRaised", "normal", "strong"].map(
-        (role) => palettes.grayscale[role as keyof typeof palettes.grayscale],
-      ),
-    ).size >= 5,
-  );
 });
 
 test("OLED neutral surfaces are uniformly true black", () => {
@@ -165,17 +109,13 @@ test("OLED text inputs retain a dark gray border", () => {
     ),
     tokenColors: [],
   };
-  for (const variant of ["oled", "grayscaleOled"] as const) {
-    const generated = generateTheme(legacy, variant, [
-      ...textInputBorderTokens,
-    ]);
-    for (const token of textInputBorderTokens)
-      assert.equal(
-        generated.colors[token],
-        palettes[variant].structuralBorder,
-        `${variant}: ${token}`,
-      );
-  }
+  const generated = generateTheme(legacy, "oled", [...textInputBorderTokens]);
+  for (const token of textInputBorderTokens)
+    assert.equal(
+      generated.colors[token],
+      palettes.oled.structuralBorder,
+      token,
+    );
 });
 
 test("OLED panel resize handles use a lighter hover border", () => {
@@ -185,16 +125,13 @@ test("OLED panel resize handles use a lighter hover border", () => {
     colors: { "sash.hoverBorder": "#121212" },
     tokenColors: [],
   };
-  for (const variant of ["oled", "grayscaleOled"] as const) {
-    const generated = generateTheme(legacy, variant, ["sash.hoverBorder"]);
-    const hoverBorder = generated.colors["sash.hoverBorder"];
-    assert.equal(hoverBorder, palettes[variant].rangeBorder);
-    assert.ok(
-      wcagLuminance(parse(hoverBorder)!) >
-        wcagLuminance(parse(palettes[variant].structuralBorder)!),
-      variant,
-    );
-  }
+  const generated = generateTheme(legacy, "oled", ["sash.hoverBorder"]);
+  const hoverBorder = generated.colors["sash.hoverBorder"];
+  assert.equal(hoverBorder, palettes.oled.rangeBorder);
+  assert.ok(
+    wcagLuminance(parse(hoverBorder)!) >
+      wcagLuminance(parse(palettes.oled.structuralBorder)!),
+  );
 });
 
 test("structural workbench borders are visible in every generated variant", () => {
@@ -891,7 +828,7 @@ test("every registered variant is generated, complete, and packaged with its met
       themes: { label: string; uiTheme: string; path: string }[];
     };
   };
-  assert.equal(manifest.contributes.themes.length, 9);
+  assert.equal(manifest.contributes.themes.length, 5);
   for (const definition of variantDefinitions) {
     const theme = JSON.parse(
       await readFile(definition.output, "utf8"),
@@ -927,179 +864,4 @@ test("preserved old themes retain exact hashes", async () => {
       hash,
       path,
     );
-});
-
-test("light generated themes use layered non-white surfaces and dark overlays", async () => {
-  const toOklch = converter("oklch");
-  for (const definition of variantDefinitions.filter(
-    ({ themeType }) => themeType === "light",
-  )) {
-    const theme = JSON.parse(
-      await readFile(definition.output, "utf8"),
-    ) as Theme;
-    const surfaces = [
-      "editor.background",
-      "sideBar.background",
-      "activityBar.background",
-      "panel.background",
-      "titleBar.activeBackground",
-      "statusBar.background",
-      "menu.background",
-      "editorWidget.background",
-    ];
-    for (const token of surfaces)
-      assert.notEqual(theme.colors[token].toLowerCase(), "#ffffff", token);
-    assert.ok(new Set(surfaces.map((token) => theme.colors[token])).size >= 3);
-    assert.ok(
-      toOklch(parse(theme.colors["editor.foreground"])!)!.l <
-        toOklch(parse(theme.colors["editor.background"])!)!.l,
-    );
-    const selection = parse(theme.colors["editor.selectionBackground"])!;
-    assert.ok((selection.alpha ?? 1) < 1);
-    assert.ok(
-      toOklch(selection)!.l <
-        toOklch(parse(theme.colors["editor.background"])!)!.l,
-    );
-  }
-});
-
-test("grayscale generated syntax and ordinary UI use differentiated neutrals", async () => {
-  const toOklch = converter("oklch");
-  const semanticStateToken =
-    /terminal\.ansi|error|warning|info|success|added|inserted|deleted|removed|modified|conflict|gitDecoration|scmGraph|testing|debugIcon|merge|diffEditor|problems/i;
-  for (const definition of variantDefinitions.filter(
-    ({ family }) => family === "grayscale",
-  )) {
-    const theme = JSON.parse(
-      await readFile(definition.output, "utf8"),
-    ) as Theme;
-    const colors = new Set<string>();
-    for (const rule of theme.tokenColors as {
-      scope?: string | string[];
-      settings?: { foreground?: string };
-    }[]) {
-      const scope = Array.isArray(rule.scope)
-        ? rule.scope.join(" ")
-        : (rule.scope ?? "");
-      const foreground = rule.settings?.foreground;
-      if (!foreground || /invalid|error|warning|debug/i.test(scope)) continue;
-      assert.ok((toOklch(parse(foreground)!)?.c ?? 0) <= 0.01, scope);
-      colors.add(foreground.toLowerCase());
-    }
-    assert.ok(colors.size >= 5, `${definition.id}: ${colors.size}`);
-    const lightness = [...colors]
-      .map((color) => toOklch(parse(color)!)!.l)
-      .sort((left, right) => left - right);
-    for (let index = 1; index < lightness.length; index += 1)
-      assert.ok(
-        lightness[index] - lightness[index - 1] >= 0.06,
-        `${definition.id}: neutral levels ${index - 1}/${index}`,
-      );
-    assert.equal(
-      theme.colors["activityBar.activeBorder"],
-      palettes[definition.id].accent,
-    );
-    assert.ok(
-      (toOklch(parse(palettes[definition.id].accent)!)?.c ?? 0) <= 0.02,
-    );
-    for (const [token, color] of Object.entries(theme.colors))
-      if (!semanticStateToken.test(token))
-        assert.ok((toOklch(parse(color)!)?.c ?? 0) <= 0.02, token);
-  }
-});
-
-test("Kaia Light uses neutral Zinc UI layers and vibrant readable syntax", () => {
-  const toOklch = converter("oklch");
-  for (const role of [
-    "deepest",
-    "border",
-    "chrome",
-    "canvas",
-    "surfaceRaised",
-    "filter",
-    "active",
-    "structuralBorder",
-    "accent",
-  ] as const)
-    assert.ok((toOklch(parse(palettes.light[role])!)?.c ?? 0) <= 0.02, role);
-  for (const role of [
-    "yellow",
-    "cyan",
-    "green",
-    "purple",
-    "red",
-    "orange",
-    "blue",
-  ] as const) {
-    const color = parse(palettes.light[role])!;
-    assert.ok((toOklch(color)?.c ?? 0) >= 0.075, role);
-    assert.ok(wcagContrast(color, parse(palettes.light.canvas)!) >= 4.5, role);
-  }
-});
-
-test("grayscale OLED covers major surfaces with black and retains structure", async () => {
-  const theme = JSON.parse(
-    await readFile("themes/kaia-grayscale-oled.json", "utf8"),
-  ) as Theme;
-  for (const token of [
-    "editor.background",
-    "sideBar.background",
-    "activityBar.background",
-    "panel.background",
-    "titleBar.activeBackground",
-    "statusBar.background",
-    "menu.background",
-    "editorWidget.background",
-    "input.background",
-    "dropdown.background",
-    "terminal.background",
-  ])
-    assert.equal(theme.colors[token], "#000000", token);
-  assert.notEqual(theme.colors["panel.border"], "#000000");
-  assert.notEqual(theme.colors["editor.selectionBackground"], "#000000");
-});
-
-test("light and grayscale-light ANSI colors are independently readable", async () => {
-  for (const path of [
-    "themes/kaia-light.json",
-    "themes/kaia-grayscale-light.json",
-  ]) {
-    const theme = JSON.parse(await readFile(path, "utf8")) as Theme;
-    for (const [token, color] of Object.entries(theme.colors).filter(
-      ([token]) => token.startsWith("terminal.ansi"),
-    ))
-      assert.ok(
-        wcagContrast(
-          parse(color)!,
-          parse(theme.colors["terminal.background"])!,
-        ) >= 3,
-        `${path}: ${token}`,
-      );
-  }
-});
-
-test("light reference neutrals classify against the light semantic ladder", () => {
-  const light = classifyReferenceColor(
-    "editor.background",
-    "#fffffe",
-    "light",
-  )!;
-  assert.equal(light.role, "canvas");
-  assert.equal(
-    mapReferenceColor("editor.background", "#fffffe", palettes.light, "light"),
-    palettes.light.canvas,
-  );
-  assert.notEqual(
-    mapReferenceColor("editor.background", "#fffffe", palettes.kaia, "dark"),
-    palettes.light.canvas,
-  );
-  assert.equal(
-    mapReferenceColor(
-      "list.hoverBackground",
-      "#0000000d",
-      palettes.light,
-      "light",
-    )?.slice(-2),
-    "0d",
-  );
 });

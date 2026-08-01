@@ -12,6 +12,7 @@ import {
   classifyReferenceColor,
   foregroundSurfacePairs,
   isReferenceEquivalent,
+  oledTokenRoleOverrides,
   palettes,
   structuralBorderTokens,
   tokenRoleOverrides,
@@ -20,7 +21,6 @@ import { variantDefinitions } from "../src/variants.js";
 import {
   file,
   read2026DarkReference,
-  read2026LightReference,
   readJson,
   readThemeJsonc,
   stableJson,
@@ -36,16 +36,11 @@ const inventory = await readJson<{
   vscode: { tag: string; commit: string };
   tokens: string[];
 }>("references/vscode-1.130.0-workbench-colors.json");
-const references = {
-  dark: await read2026DarkReference(),
-  light: await read2026LightReference(),
-};
+const reference = await read2026DarkReference();
 const toOklch = converter("oklch");
 const toRgb = converter("rgb");
 const inSrgb = inGamut("rgb");
 const structuralBorders = new Set(structuralBorderTokens);
-const semanticStateToken =
-  /terminal\.ansi|error|warning|info|success|added|inserted|deleted|removed|modified|conflict|gitDecoration|scmGraph|testing|debugIcon|merge|diffEditor|problems/i;
 type RgbColor = NonNullable<ReturnType<typeof toRgb>>;
 function composite(value: string, backdrop: string | RgbColor): RgbColor {
   const color = toRgb(parse(value)!)!;
@@ -85,9 +80,8 @@ const baseline: Record<string, unknown> = {
 };
 let failed = false;
 for (const definition of variantDefinitions) {
-  const { id: variant, output, reference: referenceKind } = definition;
+  const { id: variant, output } = definition;
   const name = output.replace("themes/", "").replace(".json", "");
-  const reference = references[referenceKind];
   const theme = await readJson<Generated>(output);
   const uncovered = inventory.tokens.filter(
     (token) => !(token in theme.colors),
@@ -157,36 +151,16 @@ for (const definition of variantDefinitions) {
     if (!expected || !actual) return [];
     return [{ token, expected, actual, source: referenceColor.source }];
   });
-  const isIntentionalOverride = (
-    token: string,
-    expected: { kind: string },
-    actual: { chroma: number },
-  ) => {
-    if (token in tokenRoleOverrides || structuralBorders.has(token))
-      return true;
-    if (
-      (definition.id === "light" || definition.family === "grayscale") &&
-      expected.kind === "chromatic" &&
-      actual.chroma <= 0.02
-    )
-      return true;
-    if (definition.themeType !== "light") return false;
-    if (token === "button.background") return true;
-    return (
-      /error|invalid|deleted|removed|conflict|warning|modified|success|added|inserted|untracked/i.test(
-        token,
-      ) &&
-      token.toLowerCase().includes("background") &&
-      (parse(theme.colors[token])?.alpha ?? 1) < 1
-    );
-  };
-  const intentionalOverrides = referenceClassifications.filter(
-    ({ token, expected, actual }) =>
-      isIntentionalOverride(token, expected, actual),
+  const isIntentionalOverride = (token: string) =>
+    token in tokenRoleOverrides ||
+    (definition.oled && token in oledTokenRoleOverrides) ||
+    structuralBorders.has(token);
+  const intentionalOverrides = referenceClassifications.filter(({ token }) =>
+    isIntentionalOverride(token),
   );
   const mismatches = referenceClassifications.filter(
-    ({ token, expected, actual }) =>
-      !isIntentionalOverride(token, expected, actual) &&
+    ({ token }) =>
+      !isIntentionalOverride(token) &&
       !isReferenceEquivalent(
         token,
         matchReferenceColor(token, reference).value,
@@ -200,19 +174,6 @@ for (const definition of variantDefinitions) {
     )
     .filter(([, value]) => (parse(value)?.alpha ?? 1) === 1)
     .map(([token]) => token);
-  const whiteLargeSurfaces =
-    definition.themeType === "light"
-      ? [
-          "editor.background",
-          "sideBar.background",
-          "panel.background",
-          "activityBar.background",
-          "titleBar.activeBackground",
-          "statusBar.background",
-          "menu.background",
-          "editorWidget.background",
-        ].filter((token) => theme.colors[token]?.toLowerCase() === "#ffffff")
-      : [];
   const oledSurfaceFailures = definition.oled
     ? [
         "editor.background",
@@ -263,40 +224,6 @@ for (const definition of variantDefinitions) {
     return { source, scope, color, ratio, minimum, passes: ratio >= minimum };
   });
   const syntaxContrastFailures = syntaxContrast.filter(({ passes }) => !passes);
-  const grayscaleSyntax =
-    definition.family === "grayscale"
-      ? ordinarySyntax.filter(
-          ({ color }) => (toOklch(parse(color)!)?.c ?? 0) > 0.01,
-        )
-      : [];
-  const grayscaleUiChromaViolations =
-    definition.family === "grayscale"
-      ? Object.entries(theme.colors)
-          .filter(([token]) => !semanticStateToken.test(token))
-          .filter(([, color]) => (toOklch(parse(color)!)?.c ?? 0) > 0.02)
-          .map(([token, color]) => ({ token, color }))
-      : [];
-  const opaqueSyntaxColors = new Set(
-    ordinarySyntax
-      .map(({ color }) => color.toLowerCase())
-      .filter((color) => (parse(color)?.alpha ?? 1) === 1),
-  );
-  const grayscaleLadder =
-    definition.family === "grayscale"
-      ? [...opaqueSyntaxColors]
-          .map((hex) => ({ hex, l: toOklch(parse(hex)!)!.l }))
-          .sort((left, right) => left.l - right.l)
-          .map((entry, index, entries) => ({
-            ...entry,
-            deltaFromPrevious:
-              index === 0 ? null : entry.l - entries[index - 1].l,
-          }))
-      : [];
-  const grayscaleLevels = grayscaleLadder.length;
-  const grayscaleSpacingViolations = grayscaleLadder.filter(
-    ({ deltaFromPrevious }) =>
-      deltaFromPrevious !== null && deltaFromPrevious < 0.06,
-  );
   const ansiContrast = Object.entries(theme.colors)
     .filter(([token]) => token.startsWith("terminal.ansi"))
     .map(([token, color]) => ({
@@ -311,14 +238,9 @@ for (const definition of variantDefinitions) {
   if (
     opaqueDiagnosticBackgrounds.length ||
     mismatches.length ||
-    whiteLargeSurfaces.length ||
     oledSurfaceFailures.length ||
-    grayscaleSyntax.length ||
-    grayscaleUiChromaViolations.length ||
     syntaxContrastFailures.length ||
-    ansiContrastFailures.length ||
-    grayscaleSpacingViolations.length ||
-    (definition.family === "grayscale" && grayscaleLevels < 5)
+    ansiContrastFailures.length
   )
     failed = true;
   report.themes = {
@@ -326,8 +248,7 @@ for (const definition of variantDefinitions) {
     [name]: {
       variant,
       themeType: definition.themeType,
-      reference: referenceKind,
-      family: definition.family,
+      reference: "dark",
       oled: definition.oled,
       workbenchTokens: Object.keys(theme.colors).length,
       tokenColorRules: theme.tokenColors.length,
@@ -357,13 +278,7 @@ for (const definition of variantDefinitions) {
         mismatches: mismatches.length,
         mismatchTokens: mismatches.map(({ token }) => token),
         opaqueDiagnosticBackgrounds,
-        whiteLargeSurfaces,
         oledSurfaceFailures,
-        grayscaleSyntaxChromaViolations: grayscaleSyntax.length,
-        grayscaleUiChromaViolations,
-        grayscaleLevels,
-        grayscaleLadder,
-        grayscaleSpacingViolations,
       },
       contrast: contrasts,
       syntaxContrast: {
