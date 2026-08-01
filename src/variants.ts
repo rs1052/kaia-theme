@@ -1,7 +1,7 @@
 export type ThemeType = "dark" | "light";
 
 export interface VariantDefinition {
-  readonly id: "kaia" | "subtle" | "oled";
+  readonly id: "kaia" | "oled";
   readonly label: string;
   readonly themeType: ThemeType;
   readonly uiTheme: "vs" | "vs-dark";
@@ -19,15 +19,6 @@ export const variantDefinitions = [
     uiTheme: "vs-dark",
     oled: false,
     output: "themes/kaia.json",
-    legacySource: "themes/kaia-old.json",
-  },
-  {
-    id: "subtle",
-    label: "Kaia Subtle",
-    themeType: "dark",
-    uiTheme: "vs-dark",
-    oled: false,
-    output: "themes/kaia-subtle.json",
     legacySource: "themes/kaia-old.json",
   },
   {

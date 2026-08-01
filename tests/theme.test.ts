@@ -33,7 +33,7 @@ test("semantic source is hexadecimal and parses with Culori", () => {
 test("variant registry defines every generated theme with the correct polarity", () => {
   assert.deepEqual(
     variantDefinitions.map(({ id }) => id),
-    ["kaia", "subtle", "oled"],
+    ["kaia", "oled"],
   );
   for (const definition of variantDefinitions) {
     assert.match(definition.output, /^themes\/kaia.*\.json$/);
@@ -143,7 +143,7 @@ test("structural workbench borders are visible in every generated variant", () =
     ),
     tokenColors: [],
   };
-  for (const variant of ["kaia", "subtle", "oled"] as const) {
+  for (const variant of ["kaia", "oled"] as const) {
     const generated = generateTheme(legacy, variant, [
       ...structuralBorderTokens,
     ]);
@@ -220,7 +220,7 @@ test("editor selections preserve readable syntax contrast", () => {
   ] as const;
   const toRgb = converter("rgb");
 
-  for (const variant of ["kaia", "subtle", "oled"] as const) {
+  for (const variant of ["kaia", "oled"] as const) {
     const generated = generateTheme(legacy, variant, [
       "editor.selectionBackground",
       "editor.selectionForeground",
@@ -347,6 +347,8 @@ test("find results distinguish the active match without dark text", () => {
 test("editor text highlights use transparent gray roles", () => {
   const highlightRoles = {
     "editor.inactiveSelectionBackground": "highlightStrongOverlay",
+    "editor.lineHighlightBackground": "lineHighlightBackground",
+    "editor.lineHighlightBorder": "transparent",
     "editor.selectionHighlightBackground": "highlightOverlay",
     "editor.wordHighlightBackground": "highlightOverlay",
     "editor.wordHighlightStrongBackground": "highlightStrongOverlay",
@@ -367,7 +369,7 @@ test("editor text highlights use transparent gray roles", () => {
     tokenColors: [],
   };
 
-  for (const variant of ["kaia", "subtle", "oled"] as const) {
+  for (const variant of ["kaia", "oled"] as const) {
     const generated = generateTheme(legacy, variant, tokens);
     for (const [token, role] of Object.entries(highlightRoles))
       assert.equal(
@@ -385,7 +387,7 @@ test("window borders use neutral gray instead of the accent", () => {
     colors: {},
     tokenColors: [],
   };
-  for (const variant of ["kaia", "subtle", "oled"] as const) {
+  for (const variant of ["kaia", "oled"] as const) {
     const generated = generateTheme(legacy, variant, [
       "window.activeBorder",
       "window.inactiveBorder",
@@ -636,7 +638,7 @@ test("diff line and gutter backgrounds are translucent overlays", () => {
     "diffEditorGutter.insertedLineBackground",
     "diffEditorGutter.removedLineBackground",
   ];
-  for (const variant of ["kaia", "subtle", "oled"] as const) {
+  for (const variant of ["kaia", "oled"] as const) {
     const generated = generateTheme(legacy, variant, tokens);
     for (const token of tokens) {
       const color = generated.colors[token];
@@ -743,7 +745,7 @@ test("bright workbench surfaces use dark contrasting foregrounds", () => {
       ]),
     ),
   };
-  for (const variant of ["kaia", "subtle", "oled"] as const) {
+  for (const variant of ["kaia", "oled"] as const) {
     const generated = generateTheme(legacy, variant, tokens, reference);
     for (const [foreground, background] of pairs)
       assert.ok(
@@ -801,7 +803,7 @@ test("preserved legacy themes parse as JSONC without being rewritten", async () 
 
 test("generated theme colors are valid six- or eight-digit hex", async () => {
   const legacy = await readThemeJsonc<Theme>("themes/kaia-old.json");
-  for (const variant of ["kaia", "subtle", "oled"] as const) {
+  for (const variant of ["kaia", "oled"] as const) {
     const generated = generateTheme(legacy, variant, [
       "editor.background",
       "editor.foreground",
@@ -828,7 +830,7 @@ test("every registered variant is generated, complete, and packaged with its met
       themes: { label: string; uiTheme: string; path: string }[];
     };
   };
-  assert.equal(manifest.contributes.themes.length, 5);
+  assert.equal(manifest.contributes.themes.length, 4);
   for (const definition of variantDefinitions) {
     const theme = JSON.parse(
       await readFile(definition.output, "utf8"),

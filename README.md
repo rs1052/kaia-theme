@@ -6,9 +6,9 @@ A Monokai-inspired theme for Visual Studio Code with a focus on accessible contr
 
 ![Kaia Theme](images/kaia-theme.png)
 
-**Kaia Subtle**
+**Kaia Subtle - Old**
 
-![Kaia Subtle Theme](images/kaia-subtle-theme.png)
+![Kaia Subtle - Old Theme](images/kaia-subtle-theme.png)
 
 ## Installation
 
@@ -38,7 +38,7 @@ code --uninstall-extension ryan0x200.kaia-theme-vscode
 
 ## Theme variants
 
-- **Kaia**, **Kaia Subtle**, and **Kaia OLED** are generated dark themes. OLED uses true black for every neutral workbench surface, with structural borders retained for separation.
+- **Kaia** and **Kaia OLED** are generated dark themes. OLED uses true black for every neutral workbench surface, with structural borders retained for separation.
 - **Kaia - Old** and **Kaia Subtle - Old** retain the original extension theme bytes for comparison and rollback.
 
 ## Development

@@ -68,11 +68,6 @@
         "path": "./themes/kaia.json"
       },
       {
-        "label": "Kaia Subtle",
-        "uiTheme": "vs-dark",
-        "path": "./themes/kaia-subtle.json"
-      },
-      {
         "label": "Kaia OLED",
         "uiTheme": "vs-dark",
         "path": "./themes/kaia-oled.json"

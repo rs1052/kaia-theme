@@ -105,7 +105,7 @@ for (const definition of variantDefinitions) {
         ),
         minimum:
           foreground === "editorLineNumber.foreground"
-            ? (["kaia", "subtle", "oled"] as string[]).includes(variant)
+            ? (["kaia", "oled"] as string[]).includes(variant)
               ? 2.5
               : 3
             : 4.5,
@@ -217,7 +217,7 @@ for (const definition of variantDefinitions) {
     const minimum = /comment/i.test(scope)
       ? 3
       : /line-number\.find-in-files/i.test(scope)
-        ? (["kaia", "subtle", "oled"] as string[]).includes(variant)
+        ? (["kaia", "oled"] as string[]).includes(variant)
           ? 2.5
           : 3
         : 4.5;

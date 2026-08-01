@@ -36,6 +36,7 @@ export const basePalette = {
   onAccent: "#212121",
   findMatchActiveBackground: "#505050",
   findMatchActiveForeground: "#f5f5f5",
+  lineHighlightBackground: "#f5f5f50c",
   red: "#ef9a9a",
   redBright: "#ffcdd2",
   orange: "#ffcc80",
@@ -68,12 +69,6 @@ export interface OklchTransform {
   readonly chromaMultiplier: number;
 }
 
-const subtleTransform = {
-  accent: { lightnessDelta: 0.02, chromaMultiplier: 0.72 },
-  status: { lightnessDelta: 0.055, chromaMultiplier: 0.65 },
-  syntax: { lightnessDelta: 0.045, chromaMultiplier: 0.68 },
-} as const;
-
 const toOklch = converter("oklch");
 const toRgb = converter("rgb");
 const mapToSrgb = toGamut("rgb", "oklch");
@@ -93,27 +88,6 @@ export function transformHex(hex: string, transform: OklchTransform): string {
     : formatHex(mapped)!.toLowerCase();
 }
 
-const accentRoles = new Set<Role>(["accent", "accentBright"]);
-const statusRoles = new Set<Role>(["red", "orange", "green", "blue"]);
-const syntaxRoles = new Set<Role>(["yellow", "cyan", "purple"]);
-
-function createSubtlePalette(): Record<Role, string> {
-  const result = { ...basePalette } as Record<Role, string>;
-  for (const role of Object.keys(basePalette) as Role[]) {
-    const transform = accentRoles.has(role)
-      ? subtleTransform.accent
-      : statusRoles.has(role)
-        ? subtleTransform.status
-        : syntaxRoles.has(role)
-          ? subtleTransform.syntax
-          : undefined;
-    if (transform) result[role] = transformHex(basePalette[role], transform);
-  }
-  result.diffAddedLine = `${result.green.slice(0, 7)}19`;
-  result.diffRemovedLine = `${result.red.slice(0, 7)}19`;
-  return result;
-}
-
 export const oledSurfaceRoles: Readonly<Partial<Record<Role, string>>> = {
   deepest: "#000000",
   border: "#000000",
@@ -131,12 +105,12 @@ function createOledPalette(): Record<Role, string> {
     // This role shares the legacy canvas hex; keeping both black preserves
     // OLED surfaces while retaining maximum contrast on bright accents.
     onAccent: "#000000",
+    lineHighlightBackground: "#080808",
   };
 }
 
 export const palettes: Record<Variant, Record<Role, string>> = {
   kaia: { ...basePalette },
-  subtle: createSubtlePalette(),
   oled: createOledPalette(),
 };
 
@@ -217,6 +191,8 @@ export const tokenRoleOverrides: Readonly<Record<string, Role>> = {
   "editor.findMatchHighlightBackground": "selectionBackground",
   "editor.findMatchHighlightBorder": "transparent",
   "editor.findMatchHighlightForeground": "strong",
+  "editor.lineHighlightBackground": "lineHighlightBackground",
+  "editor.lineHighlightBorder": "transparent",
   "editor.inactiveSelectionBackground": "highlightStrongOverlay",
   "editor.selectionBackground": "selectionBackground",
   "editor.selectionForeground": "strong",
