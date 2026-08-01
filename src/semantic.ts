@@ -34,6 +34,8 @@ export const basePalette = {
   accent: "#fff59d",
   accentBright: "#fff9c4",
   onAccent: "#212121",
+  findMatchActiveBackground: "#505050",
+  findMatchActiveForeground: "#f5f5f5",
   red: "#ef9a9a",
   redBright: "#ffcdd2",
   orange: "#ffcc80",
@@ -155,6 +157,8 @@ function createLightPalette(): Record<Role, string> {
     accent: "#3f3f46",
     accentBright: "#27272a",
     onAccent: "#fafafa",
+    findMatchActiveBackground: "#3f3f46",
+    findMatchActiveForeground: "#fafafa",
     highlightSubtleOverlay: "#27272a12",
     highlightOverlay: "#27272a1c",
     highlightStrongOverlay: "#27272a29",
@@ -213,6 +217,8 @@ function createGrayscalePalette(): Record<Role, string> {
     accent: "#d0d0d0",
     accentBright: "#f5f5f5",
     onAccent: "#151515",
+    findMatchActiveBackground: "#5a5a5a",
+    findMatchActiveForeground: "#f5f5f5",
     yellow: "#c4c4c4",
     yellowSoft: "#d8d8d8",
     cyan: "#c8c8c8",
@@ -257,6 +263,8 @@ function createGrayscaleLightPalette(): Record<Role, string> {
     accent: "#3f3f46",
     accentBright: "#27272a",
     onAccent: "#fafafa",
+    findMatchActiveBackground: "#3f3f46",
+    findMatchActiveForeground: "#fafafa",
     yellow: "#52525b",
     yellowSoft: "#71717a",
     highlightSubtleOverlay: "#27272a12",
@@ -332,6 +340,20 @@ export const activeEditorSurfaceTokens = [
   "tab.unfocusedActiveBorderTop",
 ] as const;
 
+/** Text-entry controls that need an outline when OLED surfaces merge to black. */
+export const textInputBorderTokens = [
+  "agentFeedbackInputWidget.border",
+  "agentsChatInput.border",
+  "inlineChatInput.border",
+  "input.border",
+  "panelInput.border",
+] as const;
+
+/** OLED-only roles for interactive outlines that must stand out from black. */
+export const oledTokenRoleOverrides: Readonly<Record<string, Role>> = {
+  "sash.hoverBorder": "rangeBorder",
+};
+
 const activeEditorSurfaceRoles = Object.fromEntries(
   activeEditorSurfaceTokens.map((token) => [token, "canvas"] as const),
 ) as Readonly<Record<(typeof activeEditorSurfaceTokens)[number], Role>>;
@@ -356,8 +378,12 @@ export const tokenRoleOverrides: Readonly<Record<string, Role>> = {
   "quickInputList.focusIconForeground": "onAccent",
   "statusBarItem.remoteForeground": "onAccent",
   "statusBarItem.remoteHoverForeground": "onAccent",
-  "editor.findMatchBackground": "selectionBackground",
-  "editor.findMatchHighlightBackground": "highlightStrongOverlay",
+  "editor.findMatchBackground": "findMatchActiveBackground",
+  "editor.findMatchBorder": "accentBright",
+  "editor.findMatchForeground": "findMatchActiveForeground",
+  "editor.findMatchHighlightBackground": "selectionBackground",
+  "editor.findMatchHighlightBorder": "transparent",
+  "editor.findMatchHighlightForeground": "strong",
   "editor.inactiveSelectionBackground": "highlightStrongOverlay",
   "editor.selectionBackground": "selectionBackground",
   "editor.selectionForeground": "strong",

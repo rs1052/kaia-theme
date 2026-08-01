@@ -5,9 +5,11 @@ import {
   foregroundSurfacePairs,
   isReferenceEquivalent,
   mapReferenceColor,
+  oledTokenRoleOverrides,
   palettes,
   roleForToken,
   structuralBorderTokens,
+  textInputBorderTokens,
   tokenRoleOverrides,
   transformHex,
   type Role,
@@ -40,6 +42,7 @@ const roleByLegacyHex = Object.entries(palettes.kaia)
   }, {});
 
 const structuralBorders = new Set(structuralBorderTokens);
+const textInputBorders = new Set<string>(textInputBorderTokens);
 const lightForegroundSurfacePairs: Readonly<Record<string, string>> = {
   "editor.foreground": "editor.background",
   "sideBar.foreground": "sideBar.background",
@@ -247,6 +250,10 @@ export function generateTheme(
       continue;
     }
     const override =
+      (variants[variant].oled
+        ? (oledTokenRoleOverrides[token] ??
+          (textInputBorders.has(token) ? "structuralBorder" : undefined))
+        : undefined) ??
       tokenRoleOverrides[token] ??
       (structuralBorders.has(token) ? "structuralBorder" : undefined);
     if (override !== undefined) {

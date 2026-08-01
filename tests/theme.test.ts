@@ -4,7 +4,7 @@ import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
 import test from "node:test";
-import { converter, parse, wcagContrast } from "culori";
+import { converter, parse, wcagContrast, wcagLuminance } from "culori";
 import {
   classifyReferenceColor,
   activeEditorSurfaceTokens,
@@ -14,6 +14,7 @@ import {
   palettes,
   roleForToken,
   structuralBorderTokens,
+  textInputBorderTokens,
   transformHex,
 } from "../src/semantic.js";
 import {
@@ -155,6 +156,47 @@ test("OLED generation resolves legacy canvas aliases to true black", () => {
   assert.equal(generated.colors["dropdown.background"], "#000000");
 });
 
+test("OLED text inputs retain a dark gray border", () => {
+  const legacy: Theme = {
+    $schema: "x",
+    type: "dark",
+    colors: Object.fromEntries(
+      textInputBorderTokens.map((token) => [token, "#121212"]),
+    ),
+    tokenColors: [],
+  };
+  for (const variant of ["oled", "grayscaleOled"] as const) {
+    const generated = generateTheme(legacy, variant, [
+      ...textInputBorderTokens,
+    ]);
+    for (const token of textInputBorderTokens)
+      assert.equal(
+        generated.colors[token],
+        palettes[variant].structuralBorder,
+        `${variant}: ${token}`,
+      );
+  }
+});
+
+test("OLED panel resize handles use a lighter hover border", () => {
+  const legacy: Theme = {
+    $schema: "x",
+    type: "dark",
+    colors: { "sash.hoverBorder": "#121212" },
+    tokenColors: [],
+  };
+  for (const variant of ["oled", "grayscaleOled"] as const) {
+    const generated = generateTheme(legacy, variant, ["sash.hoverBorder"]);
+    const hoverBorder = generated.colors["sash.hoverBorder"];
+    assert.equal(hoverBorder, palettes[variant].rangeBorder);
+    assert.ok(
+      wcagLuminance(parse(hoverBorder)!) >
+        wcagLuminance(parse(palettes[variant].structuralBorder)!),
+      variant,
+    );
+  }
+});
+
 test("structural workbench borders are visible in every generated variant", () => {
   const legacy: Theme = {
     $schema: "x",
@@ -283,10 +325,90 @@ test("editor selections preserve readable syntax contrast", () => {
   }
 });
 
+test("find results distinguish the active match without dark text", () => {
+  const tokens = [
+    "editor.findMatchBackground",
+    "editor.findMatchBorder",
+    "editor.findMatchForeground",
+    "editor.findMatchHighlightBackground",
+    "editor.findMatchHighlightBorder",
+    "editor.findMatchHighlightForeground",
+  ];
+  const legacy: Theme = {
+    $schema: "x",
+    type: "dark",
+    colors: Object.fromEntries(tokens.map((token) => [token, "#808080"])),
+    tokenColors: [],
+  };
+  const toRgb = converter("rgb");
+
+  for (const definition of variantDefinitions) {
+    const variant = definition.id;
+    const generated = generateTheme(legacy, variant, tokens);
+    const palette = palettes[variant];
+    const inactiveOverlay = toRgb(
+      parse(generated.colors["editor.findMatchHighlightBackground"])!,
+    )!;
+    const editor = toRgb(parse(palette.canvas)!)!;
+    const alpha = inactiveOverlay.alpha ?? 1;
+    const inactiveBackground = {
+      mode: "rgb" as const,
+      r: inactiveOverlay.r * alpha + editor.r * (1 - alpha),
+      g: inactiveOverlay.g * alpha + editor.g * (1 - alpha),
+      b: inactiveOverlay.b * alpha + editor.b * (1 - alpha),
+    };
+
+    assert.equal(
+      generated.colors["editor.findMatchBackground"],
+      palette.findMatchActiveBackground,
+    );
+    assert.equal(
+      generated.colors["editor.findMatchBorder"],
+      palette.accentBright,
+    );
+    assert.equal(
+      generated.colors["editor.findMatchForeground"],
+      palette.findMatchActiveForeground,
+    );
+    assert.equal(
+      generated.colors["editor.findMatchHighlightBackground"],
+      palette.selectionBackground,
+    );
+    assert.equal(
+      generated.colors["editor.findMatchHighlightBorder"],
+      palette.transparent,
+    );
+    assert.equal(
+      generated.colors["editor.findMatchHighlightForeground"],
+      palette.strong,
+    );
+    assert.notEqual(
+      generated.colors["editor.findMatchBackground"],
+      generated.colors["editor.findMatchHighlightBackground"],
+      `${variant}: active and inactive matches`,
+    );
+    assert.ok(
+      wcagContrast(
+        parse(palette.findMatchActiveForeground)!,
+        parse(palette.findMatchActiveBackground)!,
+      ) >= 4.5,
+      `${variant}: active match text`,
+    );
+    if (definition.themeType === "dark")
+      assert.ok(
+        wcagLuminance(parse(palette.findMatchActiveForeground)!) >
+          wcagLuminance(parse(palette.findMatchActiveBackground)!),
+        `${variant}: active match uses light text`,
+      );
+    assert.ok(
+      wcagContrast(parse(palette.strong)!, inactiveBackground) >= 4.5,
+      `${variant}: inactive match text`,
+    );
+  }
+});
+
 test("editor text highlights use transparent gray roles", () => {
   const highlightRoles = {
-    "editor.findMatchBackground": "selectionBackground",
-    "editor.findMatchHighlightBackground": "highlightStrongOverlay",
     "editor.inactiveSelectionBackground": "highlightStrongOverlay",
     "editor.selectionHighlightBackground": "highlightOverlay",
     "editor.wordHighlightBackground": "highlightOverlay",
