@@ -1,8 +1,10 @@
 import { readFile } from "node:fs/promises";
 import { generateTheme, type Theme } from "../src/theme.js";
+import { variantDefinitions } from "../src/variants.js";
 import {
   file,
   read2026DarkReference,
+  read2026LightReference,
   readJson,
   readThemeJsonc,
   stableJson,
@@ -11,23 +13,46 @@ import {
 const inventory = await readJson<{ tokens: string[] }>(
   "references/vscode-1.130.0-workbench-colors.json",
 );
-const reference = await read2026DarkReference();
+const references = {
+  dark: await read2026DarkReference(),
+  light: await read2026LightReference(),
+};
 let failed = false;
-for (const [variant, oldPath, output] of [
-  ["kaia", "themes/kaia-old.json", "themes/kaia.json"],
-  ["subtle", "themes/kaia-old.json", "themes/kaia-subtle.json"],
-  ["oled", "themes/kaia-old.json", "themes/kaia-oled.json"],
-] as const) {
+const packageJson = await readJson<{
+  contributes: { themes: { label: string; uiTheme: string; path: string }[] };
+}>("package.json");
+for (const definition of variantDefinitions) {
+  const contribution = packageJson.contributes.themes.find(
+    ({ path }) => path === `./${definition.output}`,
+  );
+  if (
+    !contribution ||
+    contribution.label !== definition.label ||
+    contribution.uiTheme !== definition.uiTheme
+  ) {
+    console.error(
+      `package.json contribution is missing or invalid for ${definition.id}`,
+    );
+    failed = true;
+  }
+}
+if (packageJson.contributes.themes.length !== variantDefinitions.length + 2) {
+  console.error(
+    "package.json must retain two legacy entries and every generated variant",
+  );
+  failed = true;
+}
+for (const definition of variantDefinitions) {
   const expected = stableJson(
     generateTheme(
-      await readThemeJsonc<Theme>(oldPath),
-      variant,
+      await readThemeJsonc<Theme>(definition.legacySource),
+      definition.id,
       inventory.tokens,
-      reference,
+      references[definition.reference],
     ),
   );
-  if (expected !== (await readFile(file(output), "utf8"))) {
-    console.error(`${output} is stale; run npm run build:themes`);
+  if (expected !== (await readFile(file(definition.output), "utf8"))) {
+    console.error(`${definition.output} is stale; run npm run build:themes`);
     failed = true;
   }
 }

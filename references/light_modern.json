@@ -1,0 +1,27 @@
+{
+  "$schema": "vscode://schemas/color-theme",
+  "name": "Light Modern (VS Code 1.130.0 reference)",
+  "type": "light",
+  "colors": {
+    "foreground": "#3b3b3b",
+    "editor.foreground": "#3b3b3b",
+    "editor.background": "#fffffe",
+    "editorWidget.background": "#f3f3f3",
+    "descriptionForeground": "#616161",
+    "disabledForeground": "#8a8a8a",
+    "focusBorder": "#006ab1b3",
+    "widget.border": "#c8c8c8",
+    "panel.border": "#c8c8c8",
+    "scrollbar.shadow": "#00000033",
+    "list.activeSelectionBackground": "#006ab126",
+    "list.hoverBackground": "#0000000d",
+    "list.errorForeground": "#b52020",
+    "errorForeground": "#b52020",
+    "list.warningForeground": "#9a6700",
+    "gitDecoration.addedResourceForeground": "#2d7d32",
+    "inputValidation.errorBackground": "#fbeaea",
+    "inputValidation.warningBackground": "#fff4ce",
+    "diffEditor.removedLineBackground": "#ffebe9",
+    "diffEditor.insertedLineBackground": "#dafbe1"
+  }
+}

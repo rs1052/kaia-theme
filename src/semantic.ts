@@ -7,8 +7,8 @@ import {
   wcagContrast,
   wcagLuminance,
 } from "culori";
-
-export type Variant = "kaia" | "subtle" | "oled";
+import type { ThemeType, Variant } from "./variants.js";
+export { variants, type Variant } from "./variants.js";
 
 /** Hexadecimal source palette extracted from the preserved Kaia theme. */
 export const basePalette = {
@@ -66,20 +66,14 @@ export interface OklchTransform {
   readonly chromaMultiplier: number;
 }
 
-export const variants = {
-  kaia: { label: "Kaia", transform: {} },
-  subtle: {
-    label: "Kaia Subtle",
-    transform: {
-      accent: { lightnessDelta: 0.02, chromaMultiplier: 0.72 },
-      status: { lightnessDelta: 0.055, chromaMultiplier: 0.65 },
-      syntax: { lightnessDelta: 0.045, chromaMultiplier: 0.68 },
-    },
-  },
-  oled: { label: "Kaia OLED", transform: {} },
+const subtleTransform = {
+  accent: { lightnessDelta: 0.02, chromaMultiplier: 0.72 },
+  status: { lightnessDelta: 0.055, chromaMultiplier: 0.65 },
+  syntax: { lightnessDelta: 0.045, chromaMultiplier: 0.68 },
 } as const;
 
 const toOklch = converter("oklch");
+const toRgb = converter("rgb");
 const mapToSrgb = toGamut("rgb", "oklch");
 
 export function transformHex(hex: string, transform: OklchTransform): string {
@@ -105,11 +99,11 @@ function createSubtlePalette(): Record<Role, string> {
   const result = { ...basePalette } as Record<Role, string>;
   for (const role of Object.keys(basePalette) as Role[]) {
     const transform = accentRoles.has(role)
-      ? variants.subtle.transform.accent
+      ? subtleTransform.accent
       : statusRoles.has(role)
-        ? variants.subtle.transform.status
+        ? subtleTransform.status
         : syntaxRoles.has(role)
-          ? variants.subtle.transform.syntax
+          ? subtleTransform.syntax
           : undefined;
     if (transform) result[role] = transformHex(basePalette[role], transform);
   }
@@ -138,11 +132,174 @@ function createOledPalette(): Record<Role, string> {
   };
 }
 
+function createLightPalette(): Record<Role, string> {
+  const result: Record<Role, string> = {
+    ...basePalette,
+    deepest: "#e4e4e7",
+    border: "#d4d4d8",
+    chrome: "#e4e4e7",
+    canvas: "#f4f4f5",
+    surfaceRaised: "#fafafa",
+    filter: "#d4d4d8",
+    active: "#d4d4d8",
+    rangeBorder: "#a1a1aa",
+    structuralBorder: "#d4d4d8",
+    selectionBackground: "#27272a2e",
+    windowBorder: "#a1a1aa",
+    subtle: "#71717a",
+    muted: "#52525b",
+    secondary: "#3f3f46",
+    normal: "#27272a",
+    strong: "#18181b",
+    panelTitle: "#27272a",
+    accent: "#3f3f46",
+    accentBright: "#27272a",
+    onAccent: "#fafafa",
+    highlightSubtleOverlay: "#27272a12",
+    highlightOverlay: "#27272a1c",
+    highlightStrongOverlay: "#27272a29",
+    diffAddedLine: "#4f7a4f24",
+    diffRemovedLine: "#a34a4324",
+  };
+  for (const role of [
+    "red",
+    "redBright",
+    "orange",
+    "yellow",
+    "yellowSoft",
+    "green",
+    "greenBright",
+    "greenSoft",
+    "cyan",
+    "cyanBright",
+    "blue",
+    "blueStrong",
+    "blueBright",
+    "purple",
+    "purpleBright",
+    "purpleSoft",
+    "coralSoft",
+    "pinkSoft",
+  ] as Role[])
+    result[role] = transformHex(basePalette[role], {
+      lightnessDelta: -0.41,
+      chromaMultiplier: 1.12,
+    });
+  return result;
+}
+
+/** Achromatic ladder: surfaces and ordinary syntax deliberately retain five levels. */
+function createGrayscalePalette(): Record<Role, string> {
+  return {
+    ...basePalette,
+    deepest: "#101010",
+    border: "#181818",
+    chrome: "#202020",
+    canvas: "#282828",
+    surfaceRaised: "#343434",
+    filter: "#3d3d3d",
+    active: "#484848",
+    rangeBorder: "#5a5a5a",
+    structuralBorder: "#404040",
+    selectionBackground: "#ffffff24",
+    windowBorder: "#505050",
+    subtle: "#727272",
+    muted: "#969696",
+    secondary: "#b8b8b8",
+    normal: "#dedede",
+    strong: "#f5f5f5",
+    panelTitle: "#d0d0d0",
+    white: "#ffffff",
+    accent: "#d0d0d0",
+    accentBright: "#f5f5f5",
+    onAccent: "#151515",
+    yellow: "#c4c4c4",
+    yellowSoft: "#d8d8d8",
+    cyan: "#c8c8c8",
+    cyanBright: "#dedede",
+    blueStrong: "#b8b8b8",
+    blueBright: "#d8d8d8",
+    purple: "#c4c4c4",
+    purpleBright: "#dedede",
+    purpleSoft: "#d0d0d0",
+    coralSoft: "#d0d0d0",
+    pinkSoft: "#d0d0d0",
+    highlightSubtleOverlay: "#ffffff10",
+    highlightOverlay: "#ffffff18",
+    highlightStrongOverlay: "#ffffff24",
+    diffAddedLine: "#a5d6a719",
+    diffRemovedLine: "#ef9a9a19",
+  };
+}
+
+function createGrayscaleLightPalette(): Record<Role, string> {
+  const dark = createGrayscalePalette();
+  const result: Record<Role, string> = {
+    ...dark,
+    deepest: "#e4e4e7",
+    border: "#d4d4d8",
+    chrome: "#e4e4e7",
+    canvas: "#f4f4f5",
+    surfaceRaised: "#fafafa",
+    filter: "#d4d4d8",
+    active: "#d4d4d8",
+    rangeBorder: "#a1a1aa",
+    structuralBorder: "#d4d4d8",
+    selectionBackground: "#27272a2e",
+    windowBorder: "#a1a1aa",
+    subtle: "#717171",
+    muted: "#525252",
+    secondary: "#3f3f3f",
+    normal: "#272727",
+    strong: "#181818",
+    panelTitle: "#272727",
+    white: "#ffffff",
+    accent: "#3f3f46",
+    accentBright: "#27272a",
+    onAccent: "#fafafa",
+    yellow: "#52525b",
+    yellowSoft: "#71717a",
+    highlightSubtleOverlay: "#27272a12",
+    highlightOverlay: "#27272a1c",
+    highlightStrongOverlay: "#27272a29",
+    diffAddedLine: "#4f7a4f24",
+    diffRemovedLine: "#a34a4324",
+  };
+  for (const role of [
+    "red",
+    "redBright",
+    "orange",
+    "green",
+    "greenBright",
+    "greenSoft",
+    "blue",
+  ] as Role[])
+    result[role] = transformHex(basePalette[role], {
+      lightnessDelta: -0.4,
+      chromaMultiplier: 0.82,
+    });
+  return result;
+}
+
 export const palettes: Record<Variant, Record<Role, string>> = {
   kaia: { ...basePalette },
   subtle: createSubtlePalette(),
   oled: createOledPalette(),
+  light: createLightPalette(),
+  grayscale: createGrayscalePalette(),
+  grayscaleOled: {
+    ...createGrayscalePalette(),
+    ...oledSurfaceRoles,
+    onAccent: "#000000",
+  },
+  grayscaleLight: createGrayscaleLightPalette(),
 };
+
+export const darkKaiaPalette = palettes.kaia;
+export const lightKaiaPalette = palettes.light;
+export const darkGrayscalePalette = palettes.grayscale;
+export const darkGrayscaleOledPalette = palettes.grayscaleOled;
+export const lightGrayscalePalette = palettes.grayscaleLight;
 
 export const ansiRoles: Readonly<Record<string, Role>> = {
   "terminal.ansiBlack": "subtle",
@@ -163,8 +320,26 @@ export const ansiRoles: Readonly<Record<string, Role>> = {
   "terminal.ansiBrightWhite": "strong",
 };
 
+/** Active-tab and breadcrumb surfaces that flow into the editor canvas. */
+export const activeEditorSurfaceTokens = [
+  "breadcrumb.background",
+  "editorGroupHeader.border",
+  "editorGroupHeader.tabsBorder",
+  "tab.activeBackground",
+  "tab.activeBorder",
+  "tab.unfocusedActiveBackground",
+  "tab.unfocusedActiveBorder",
+  "tab.unfocusedActiveBorderTop",
+] as const;
+
+const activeEditorSurfaceRoles = Object.fromEntries(
+  activeEditorSurfaceTokens.map((token) => [token, "canvas"] as const),
+) as Readonly<Record<(typeof activeEditorSurfaceTokens)[number], Role>>;
+
 /** Explicit assignments for tokens whose names do not describe their visual intent. */
 export const tokenRoleOverrides: Readonly<Record<string, Role>> = {
+  ...activeEditorSurfaceRoles,
+  "tab.activeBorderTop": "accent",
   "activityBar.activeBorder": "accent",
   "activityBarTop.activeBorder": "accent",
   "activityBar.activeFocusBorder": "transparent",
@@ -227,8 +402,6 @@ export const structuralBorderTokens: readonly string[] = [
   "activityBar.border",
   "agentsPanel.border",
   "editorGroup.border",
-  "editorGroupHeader.border",
-  "editorGroupHeader.tabsBorder",
   "panel.border",
   "panelSection.border",
   "panelSectionHeader.border",
@@ -265,14 +438,28 @@ export const foregroundSurfacePairs: Readonly<Record<string, string>> = {
 export function contrastingForeground(
   background: string,
   palette: Readonly<Record<Role, string>>,
+  backdrop?: string,
 ): string {
   const parsedBackground = parse(background);
   if (!parsedBackground)
     throw new Error(`Invalid paired background: ${background}`);
+  const effectiveBackground = (() => {
+    if (!backdrop || (parsedBackground.alpha ?? 1) === 1)
+      return parsedBackground;
+    const foregroundRgb = toRgb(parsedBackground)!;
+    const backdropRgb = toRgb(parse(backdrop)!)!;
+    const alpha = foregroundRgb.alpha ?? 1;
+    return {
+      mode: "rgb" as const,
+      r: foregroundRgb.r * alpha + backdropRgb.r * (1 - alpha),
+      g: foregroundRgb.g * alpha + backdropRgb.g * (1 - alpha),
+      b: foregroundRgb.b * alpha + backdropRgb.b * (1 - alpha),
+    };
+  })();
   const candidates = [palette.onAccent, palette.strong];
   return candidates.reduce((best, candidate) =>
-    wcagContrast(parse(candidate)!, parsedBackground) >
-    wcagContrast(parse(best)!, parsedBackground)
+    wcagContrast(parse(candidate)!, effectiveBackground) >
+    wcagContrast(parse(best)!, effectiveBackground)
       ? candidate
       : best,
   );
@@ -306,7 +493,12 @@ const statusRoleForToken: Readonly<Record<string, Role>> = {
   removed: "red",
   modified: "blue",
 };
-const chromaThreshold = 0.025;
+// Warm light neutrals carry a small hue; reserve "chromatic" for colors whose
+// chroma communicates accent or state rather than paper/surface warmth.
+const chromaThreshold: Readonly<Record<ThemeType, number>> = {
+  dark: 0.025,
+  light: 0.04,
+};
 
 export interface ColorClassification {
   readonly kind: "neutral" | "chromatic";
@@ -317,12 +509,42 @@ export interface ColorClassification {
   readonly role: Role;
 }
 
-function nearestRole(roles: readonly Role[], luminance: number): Role {
+/** Scheme-specific neutral ladders prevent light references using dark tiers. */
+export const referencePalettes: Record<
+  ThemeType,
+  Readonly<Record<Role, string>>
+> = {
+  dark: basePalette,
+  light: {
+    ...basePalette,
+    deepest: "#e4e4e7",
+    border: "#d4d4d8",
+    chrome: "#e4e4e7",
+    canvas: "#f4f4f5",
+    surfaceRaised: "#fafafa",
+    filter: "#d4d4d8",
+    active: "#d4d4d8",
+    rangeBorder: "#a1a1aa",
+    structuralBorder: "#d4d4d8",
+    subtle: "#71717a",
+    muted: "#52525b",
+    secondary: "#3f3f46",
+    normal: "#27272a",
+    strong: "#18181b",
+    panelTitle: "#27272a",
+  },
+};
+
+function nearestRole(
+  roles: readonly Role[],
+  luminance: number,
+  referencePalette: Readonly<Record<Role, string>>,
+): Role {
   return roles.reduce((closest, role) => {
     const closestDistance = Math.abs(
-      wcagLuminance(parse(basePalette[closest])!) - luminance,
+      wcagLuminance(parse(referencePalette[closest])!) - luminance,
     );
-    return Math.abs(wcagLuminance(parse(basePalette[role])!) - luminance) <
+    return Math.abs(wcagLuminance(parse(referencePalette[role])!) - luminance) <
       closestDistance
       ? role
       : closest;
@@ -336,17 +558,52 @@ function chromaticRole(token: string): Role {
   return lower.includes("hover") ? "accentBright" : "accent";
 }
 
+function lightNeutralRole(token: string, alpha: number): Role | undefined {
+  const lower = token.toLowerCase();
+  if (alpha < 1) return undefined;
+  const background = lower.includes("background");
+  if (!background && (lower.includes("foreground") || lower.includes("text"))) {
+    if (lower.includes("disabled")) return "subtle";
+    if (
+      lower.includes("inactive") ||
+      lower.includes("placeholder") ||
+      lower.includes("description") ||
+      lower.includes("linenumber")
+    )
+      return "muted";
+    return "normal";
+  }
+  if (lower === "editor.background" || lower === "terminal.background")
+    return "canvas";
+  if (
+    lower.includes("widget.background") ||
+    lower === "menu.background" ||
+    lower === "dropdown.background"
+  )
+    return "surfaceRaised";
+  if (
+    lower === "sidebar.background" ||
+    lower.includes("titlebar") ||
+    lower.includes("statusbar") ||
+    lower.includes("activitybar")
+  )
+    return "chrome";
+  if (lower === "input.background") return "filter";
+  return undefined;
+}
+
 /** Classify reference paint with Culori; callers retain this in the audit. */
 export function classifyReferenceColor(
   token: string,
   value: string,
+  scheme: ThemeType = "dark",
 ): ColorClassification | undefined {
   const color = parse(value);
   if (!color) return undefined;
   const oklch = toOklch(color);
   if (!oklch) return undefined;
   const luminance = wcagLuminance(color);
-  const chromatic = (oklch.c ?? 0) >= chromaThreshold;
+  const chromatic = (oklch.c ?? 0) >= chromaThreshold[scheme];
   return {
     kind: chromatic ? "chromatic" : "neutral",
     alpha: color.alpha ?? 1,
@@ -355,7 +612,10 @@ export function classifyReferenceColor(
     chroma: oklch.c ?? 0,
     role: chromatic
       ? chromaticRole(token)
-      : nearestRole(neutralRoles, luminance),
+      : ((scheme === "light"
+          ? lightNeutralRole(token, color.alpha ?? 1)
+          : undefined) ??
+        nearestRole(neutralRoles, luminance, referencePalettes[scheme])),
   };
 }
 
@@ -364,8 +624,9 @@ export function mapReferenceColor(
   token: string,
   value: string,
   palette: Readonly<Record<Role, string>> = basePalette,
+  scheme: ThemeType = "dark",
 ): string | undefined {
-  const classification = classifyReferenceColor(token, value);
+  const classification = classifyReferenceColor(token, value, scheme);
   if (!classification) return undefined;
   if (classification.alpha === 0) return basePalette.transparent;
   const selected = palette[classification.role];
@@ -413,16 +674,18 @@ export function isReferenceEquivalent(
   token: string,
   referenceValue: string,
   kaiaValue: string,
+  scheme: ThemeType = "dark",
 ): boolean {
-  const reference = classifyReferenceColor(token, referenceValue);
-  const kaia = classifyReferenceColor(token, kaiaValue);
+  const reference = classifyReferenceColor(token, referenceValue, scheme);
+  const kaia = classifyReferenceColor(token, kaiaValue, scheme);
   if (!reference || !kaia) return false;
   if (alphaClass(reference.alpha) !== alphaClass(kaia.alpha)) return false;
   if (reference.alpha === 0 && kaia.alpha === 0) return true;
   if (reference.kind !== kaia.kind) return false;
   return reference.kind === "chromatic"
     ? true
-    : luminanceTier(reference.luminance) === luminanceTier(kaia.luminance);
+    : reference.role === kaia.role ||
+        luminanceTier(reference.luminance) === luminanceTier(kaia.luminance);
 }
 
 export function roleForToken(token: string): Role {

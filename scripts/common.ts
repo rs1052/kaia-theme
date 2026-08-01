@@ -32,3 +32,5 @@ export const sha256 = (value: string) =>
 
 export const read2026DarkReference = (): Promise<ResolvedReferenceTheme> =>
   resolveReferenceTheme(fileURLToPath(file("references/2026-dark.json")));
+export const read2026LightReference = (): Promise<ResolvedReferenceTheme> =>
+  resolveReferenceTheme(fileURLToPath(file("references/2026-light.json")));

@@ -1,0 +1,7 @@
+{
+  "$schema": "vscode://schemas/color-theme",
+  "name": "VS Code 1.130 Light reference",
+  "include": "./light_modern.json",
+  "type": "light",
+  "colors": {}
+}

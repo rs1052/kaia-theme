@@ -1,11 +1,13 @@
 import assert from "node:assert/strict";
-import { mkdtemp, rm, writeFile } from "node:fs/promises";
+import { createHash } from "node:crypto";
+import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
 import test from "node:test";
 import { converter, parse, wcagContrast } from "culori";
 import {
   classifyReferenceColor,
+  activeEditorSurfaceTokens,
   isReferenceEquivalent,
   mapReferenceColor,
   oledSurfaceRoles,
@@ -20,10 +22,78 @@ import {
 } from "../src/reference.js";
 import { generateTheme, type Theme } from "../src/theme.js";
 import { readThemeJsonc } from "../scripts/common.js";
+import { variantDefinitions } from "../src/variants.js";
 
 test("semantic source is hexadecimal and parses with Culori", () => {
   for (const palette of Object.values(palettes))
     for (const color of Object.values(palette)) assert.ok(parse(color));
+});
+
+test("variant registry defines every generated theme with the correct polarity", () => {
+  assert.deepEqual(
+    variantDefinitions.map(({ id }) => id),
+    [
+      "kaia",
+      "subtle",
+      "oled",
+      "light",
+      "grayscale",
+      "grayscaleOled",
+      "grayscaleLight",
+    ],
+  );
+  for (const definition of variantDefinitions) {
+    assert.match(definition.output, /^themes\/kaia.*\.json$/);
+    assert.equal(
+      definition.themeType === "light",
+      definition.id === "light" || definition.id === "grayscaleLight",
+    );
+  }
+});
+
+test("light generation uses its neutral palette and dark selection overlays", () => {
+  const generated = generateTheme(
+    {
+      $schema: "x",
+      type: "dark",
+      colors: { "editor.background": "#212121" },
+      tokenColors: [],
+    },
+    "light",
+    ["editor.background", "editor.selectionBackground"],
+  );
+  assert.equal(generated.type, "light");
+  assert.equal(generated.colors["editor.background"], palettes.light.canvas);
+  assert.notEqual(generated.colors["editor.background"], palettes.kaia.canvas);
+  assert.ok(
+    (parse(generated.colors["editor.selectionBackground"])?.alpha ?? 1) < 1,
+  );
+});
+
+test("grayscale ordinary syntax is achromatic while diagnostics remain explicit", () => {
+  const generated = generateTheme(
+    {
+      $schema: "x",
+      type: "dark",
+      colors: {},
+      tokenColors: [
+        { scope: "keyword", settings: { foreground: "#ef9a9a" } },
+        { scope: "invalid.illegal", settings: { foreground: "#ef9a9a" } },
+      ],
+    },
+    "grayscale",
+    [],
+  );
+  const rules = generated.tokenColors as { settings: { foreground: string } }[];
+  assert.equal(converter("oklch")(parse(rules[0].settings.foreground)!)?.c, 0);
+  assert.notEqual(rules[1].settings.foreground, rules[0].settings.foreground);
+  assert.ok(
+    new Set(
+      ["deepest", "chrome", "canvas", "surfaceRaised", "normal", "strong"].map(
+        (role) => palettes.grayscale[role as keyof typeof palettes.grayscale],
+      ),
+    ).size >= 5,
+  );
 });
 
 test("OLED neutral surfaces are uniformly true black", () => {
@@ -104,6 +174,45 @@ test("structural workbench borders are visible in every generated variant", () =
         palettes[variant].structuralBorder,
         `${variant}: ${token}`,
       );
+  }
+});
+
+test("only active tabs and breadcrumbs flow into the editor canvas", async () => {
+  for (const definition of variantDefinitions) {
+    const theme = JSON.parse(
+      await readFile(definition.output, "utf8"),
+    ) as Theme;
+    const canvas = theme.colors["editor.background"];
+    for (const token of activeEditorSurfaceTokens)
+      assert.equal(theme.colors[token], canvas, `${definition.id}: ${token}`);
+    assert.equal(
+      theme.colors["tab.activeBorderTop"],
+      palettes[definition.id].accent,
+      `${definition.id}: active tab indicator`,
+    );
+    if (!definition.oled) {
+      assert.notEqual(
+        theme.colors["editorGroupHeader.tabsBackground"],
+        canvas,
+        `${definition.id}: tab strip`,
+      );
+      assert.notEqual(
+        theme.colors["tab.inactiveBackground"],
+        canvas,
+        `${definition.id}: inactive tab`,
+      );
+    }
+    assert.ok(
+      wcagContrast(
+        parse(theme.colors["tab.activeForeground"])!,
+        parse(canvas)!,
+      ) >
+        wcagContrast(
+          parse(theme.colors["tab.inactiveForeground"])!,
+          parse(canvas)!,
+        ),
+      `${definition.id}: active tab foreground hierarchy`,
+    );
   }
 });
 
@@ -649,4 +758,226 @@ test("generated theme colors are valid six- or eight-digit hex", async () => {
       assert.ok(parse(color));
     }
   }
+});
+
+test("every registered variant is generated, complete, and packaged with its metadata", async () => {
+  const inventory = JSON.parse(
+    await readFile("references/vscode-1.130.0-workbench-colors.json", "utf8"),
+  ) as { tokens: string[] };
+  const manifest = JSON.parse(await readFile("package.json", "utf8")) as {
+    contributes: {
+      themes: { label: string; uiTheme: string; path: string }[];
+    };
+  };
+  assert.equal(manifest.contributes.themes.length, 9);
+  for (const definition of variantDefinitions) {
+    const theme = JSON.parse(
+      await readFile(definition.output, "utf8"),
+    ) as Theme;
+    assert.equal(theme.type, definition.themeType);
+    assert.equal(theme.name, definition.label);
+    for (const token of inventory.tokens)
+      assert.ok(token in theme.colors, `${definition.id}: ${token}`);
+    assert.ok(
+      manifest.contributes.themes.some(
+        ({ label, uiTheme, path }) =>
+          label === definition.label &&
+          uiTheme === definition.uiTheme &&
+          path === `./${definition.output}`,
+      ),
+      definition.id,
+    );
+  }
+});
+
+test("preserved old themes retain exact hashes", async () => {
+  const expected = {
+    "themes/kaia-old.json":
+      "134690153ea120400c8976aaeadaab43953eabe9f96b36dfce7dc1fddf7bbc3d",
+    "themes/kaia-subtle-old.json":
+      "d5f5f0389e4f776028e6e22ca20326707dafaeac35096799cbe81d16fa145791",
+  } as const;
+  for (const [path, hash] of Object.entries(expected))
+    assert.equal(
+      createHash("sha256")
+        .update(await readFile(path))
+        .digest("hex"),
+      hash,
+      path,
+    );
+});
+
+test("light generated themes use layered non-white surfaces and dark overlays", async () => {
+  const toOklch = converter("oklch");
+  for (const definition of variantDefinitions.filter(
+    ({ themeType }) => themeType === "light",
+  )) {
+    const theme = JSON.parse(
+      await readFile(definition.output, "utf8"),
+    ) as Theme;
+    const surfaces = [
+      "editor.background",
+      "sideBar.background",
+      "activityBar.background",
+      "panel.background",
+      "titleBar.activeBackground",
+      "statusBar.background",
+      "menu.background",
+      "editorWidget.background",
+    ];
+    for (const token of surfaces)
+      assert.notEqual(theme.colors[token].toLowerCase(), "#ffffff", token);
+    assert.ok(new Set(surfaces.map((token) => theme.colors[token])).size >= 3);
+    assert.ok(
+      toOklch(parse(theme.colors["editor.foreground"])!)!.l <
+        toOklch(parse(theme.colors["editor.background"])!)!.l,
+    );
+    const selection = parse(theme.colors["editor.selectionBackground"])!;
+    assert.ok((selection.alpha ?? 1) < 1);
+    assert.ok(
+      toOklch(selection)!.l <
+        toOklch(parse(theme.colors["editor.background"])!)!.l,
+    );
+  }
+});
+
+test("grayscale generated syntax and ordinary UI use differentiated neutrals", async () => {
+  const toOklch = converter("oklch");
+  const semanticStateToken =
+    /terminal\.ansi|error|warning|info|success|added|inserted|deleted|removed|modified|conflict|gitDecoration|scmGraph|testing|debugIcon|merge|diffEditor|problems/i;
+  for (const definition of variantDefinitions.filter(
+    ({ family }) => family === "grayscale",
+  )) {
+    const theme = JSON.parse(
+      await readFile(definition.output, "utf8"),
+    ) as Theme;
+    const colors = new Set<string>();
+    for (const rule of theme.tokenColors as {
+      scope?: string | string[];
+      settings?: { foreground?: string };
+    }[]) {
+      const scope = Array.isArray(rule.scope)
+        ? rule.scope.join(" ")
+        : (rule.scope ?? "");
+      const foreground = rule.settings?.foreground;
+      if (!foreground || /invalid|error|warning|debug/i.test(scope)) continue;
+      assert.ok((toOklch(parse(foreground)!)?.c ?? 0) <= 0.01, scope);
+      colors.add(foreground.toLowerCase());
+    }
+    assert.ok(colors.size >= 5, `${definition.id}: ${colors.size}`);
+    const lightness = [...colors]
+      .map((color) => toOklch(parse(color)!)!.l)
+      .sort((left, right) => left - right);
+    for (let index = 1; index < lightness.length; index += 1)
+      assert.ok(
+        lightness[index] - lightness[index - 1] >= 0.06,
+        `${definition.id}: neutral levels ${index - 1}/${index}`,
+      );
+    assert.equal(
+      theme.colors["activityBar.activeBorder"],
+      palettes[definition.id].accent,
+    );
+    assert.ok(
+      (toOklch(parse(palettes[definition.id].accent)!)?.c ?? 0) <= 0.02,
+    );
+    for (const [token, color] of Object.entries(theme.colors))
+      if (!semanticStateToken.test(token))
+        assert.ok((toOklch(parse(color)!)?.c ?? 0) <= 0.02, token);
+  }
+});
+
+test("Kaia Light uses neutral Zinc UI layers and vibrant readable syntax", () => {
+  const toOklch = converter("oklch");
+  for (const role of [
+    "deepest",
+    "border",
+    "chrome",
+    "canvas",
+    "surfaceRaised",
+    "filter",
+    "active",
+    "structuralBorder",
+    "accent",
+  ] as const)
+    assert.ok((toOklch(parse(palettes.light[role])!)?.c ?? 0) <= 0.02, role);
+  for (const role of [
+    "yellow",
+    "cyan",
+    "green",
+    "purple",
+    "red",
+    "orange",
+    "blue",
+  ] as const) {
+    const color = parse(palettes.light[role])!;
+    assert.ok((toOklch(color)?.c ?? 0) >= 0.075, role);
+    assert.ok(wcagContrast(color, parse(palettes.light.canvas)!) >= 4.5, role);
+  }
+});
+
+test("grayscale OLED covers major surfaces with black and retains structure", async () => {
+  const theme = JSON.parse(
+    await readFile("themes/kaia-grayscale-oled.json", "utf8"),
+  ) as Theme;
+  for (const token of [
+    "editor.background",
+    "sideBar.background",
+    "activityBar.background",
+    "panel.background",
+    "titleBar.activeBackground",
+    "statusBar.background",
+    "menu.background",
+    "editorWidget.background",
+    "input.background",
+    "dropdown.background",
+    "terminal.background",
+  ])
+    assert.equal(theme.colors[token], "#000000", token);
+  assert.notEqual(theme.colors["panel.border"], "#000000");
+  assert.notEqual(theme.colors["editor.selectionBackground"], "#000000");
+});
+
+test("light and grayscale-light ANSI colors are independently readable", async () => {
+  for (const path of [
+    "themes/kaia-light.json",
+    "themes/kaia-grayscale-light.json",
+  ]) {
+    const theme = JSON.parse(await readFile(path, "utf8")) as Theme;
+    for (const [token, color] of Object.entries(theme.colors).filter(
+      ([token]) => token.startsWith("terminal.ansi"),
+    ))
+      assert.ok(
+        wcagContrast(
+          parse(color)!,
+          parse(theme.colors["terminal.background"])!,
+        ) >= 3,
+        `${path}: ${token}`,
+      );
+  }
+});
+
+test("light reference neutrals classify against the light semantic ladder", () => {
+  const light = classifyReferenceColor(
+    "editor.background",
+    "#fffffe",
+    "light",
+  )!;
+  assert.equal(light.role, "canvas");
+  assert.equal(
+    mapReferenceColor("editor.background", "#fffffe", palettes.light, "light"),
+    palettes.light.canvas,
+  );
+  assert.notEqual(
+    mapReferenceColor("editor.background", "#fffffe", palettes.kaia, "dark"),
+    palettes.light.canvas,
+  );
+  assert.equal(
+    mapReferenceColor(
+      "list.hoverBackground",
+      "#0000000d",
+      palettes.light,
+      "light",
+    )?.slice(-2),
+    "0d",
+  );
 });

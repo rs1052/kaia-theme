@@ -1,6 +1,6 @@
 # Generating Kaia
 
-`src/semantic.ts` is the typed hexadecimal semantic palette. `src/theme.ts` applies those roles to the preserved legacy TextMate scope inventory, supplies semantic-token colors and ANSI colors, and assigns every pinned VS Code workbench token. The role fallback is deliberate and deterministic for newly registered workbench colors.
+`src/variants.ts` is the typed registry for every generated theme. `src/semantic.ts` builds dark, light, and grayscale semantic palettes; `src/theme.ts` applies those roles to the preserved legacy TextMate scope inventory, supplies semantic-token colors and polarity-aware ANSI colors, and assigns every pinned VS Code workbench token. The role fallback is deliberate and deterministic for newly registered workbench colors. `references/2026-light.json` is the committed pinned-version light reference used offline alongside the dark reference.
 
 | Command                            | Purpose                                                 | Network |
 | ---------------------------------- | ------------------------------------------------------- | ------- |
