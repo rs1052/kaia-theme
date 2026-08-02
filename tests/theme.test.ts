@@ -8,13 +8,16 @@ import { converter, parse, wcagContrast, wcagLuminance } from "culori";
 import {
   classifyReferenceColor,
   activeEditorSurfaceTokens,
+  foregroundSurfacePairs,
   isReferenceEquivalent,
   mapReferenceColor,
+  oledTokenRoleOverrides,
   oledSurfaceRoles,
   palettes,
   roleForToken,
   structuralBorderTokens,
   textInputBorderTokens,
+  tokenRoleOverrides,
   transformHex,
 } from "../src/semantic.js";
 import {
@@ -39,6 +42,24 @@ test("variant registry defines every generated theme with the correct polarity",
     assert.match(definition.output, /^themes\/kaia.*\.json$/);
     assert.equal(definition.themeType, "dark");
   }
+});
+
+test("semantic token registries reference current workbench colors", async () => {
+  const inventory = JSON.parse(
+    await readFile("references/vscode-1.130.0-workbench-colors.json", "utf8"),
+  ) as { tokens: string[] };
+  const registeredTokens = new Set(inventory.tokens);
+  const semanticTokens = new Set([
+    ...Object.keys(tokenRoleOverrides),
+    ...Object.keys(oledTokenRoleOverrides),
+    ...structuralBorderTokens,
+    ...textInputBorderTokens,
+    ...Object.keys(foregroundSurfacePairs),
+    ...Object.values(foregroundSurfacePairs),
+  ]);
+
+  for (const token of semanticTokens)
+    assert.ok(registeredTokens.has(token), token);
 });
 
 test("OLED neutral surfaces are uniformly true black", () => {
@@ -719,24 +740,7 @@ test("bright workbench surfaces use dark contrasting foregrounds", () => {
     colors: {},
     tokenColors: [],
   };
-  const pairs = [
-    ["activityBarBadge.foreground", "activityBarBadge.background"],
-    ["activityErrorBadge.foreground", "activityErrorBadge.background"],
-    ["activityWarningBadge.foreground", "activityWarningBadge.background"],
-    ["badge.foreground", "badge.background"],
-    ["button.foreground", "button.background"],
-    [
-      "extensionButton.prominentForeground",
-      "extensionButton.prominentBackground",
-    ],
-    ["quickInputList.focusForeground", "quickInputList.focusBackground"],
-    ["statusBarItem.prominentForeground", "statusBarItem.prominentBackground"],
-    [
-      "statusBarItem.prominentHoverForeground",
-      "statusBarItem.prominentHoverBackground",
-    ],
-    ["statusBarItem.remoteForeground", "statusBarItem.remoteBackground"],
-  ] as const;
+  const pairs = Object.entries(foregroundSurfacePairs);
   const tokens = [...new Set(pairs.flat())];
   const reference = {
     sources: ["2026-dark.json"],
