@@ -58,7 +58,7 @@ The legacy files are parsed in memory as JSONC because VS Code color themes perm
 
 ### Local browser audit
 
-With Docker available, the browser harness packages the current VSIX, installs it into isolated disposable code-server storage, opens a fixture workspace, and waits for a local health check:
+Docker must be installed, and Docker Desktop or the Docker daemon must already be running; the audit does not start Docker itself. The browser harness packages the current VSIX, installs it into isolated disposable code-server storage, opens a fixture workspace, and waits for a local health check:
 
 ```sh
 npm run audit:browser

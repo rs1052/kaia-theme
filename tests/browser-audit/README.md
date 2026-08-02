@@ -24,7 +24,9 @@ manual audit.
 
 ## Lifecycle
 
-Docker is required. The harness packages the current extension, installs it in
+Docker is required, and Docker Desktop or the Docker daemon must already be
+running. The audit starts and stops its code-server container, but it does not
+start Docker itself. The harness packages the current extension, installs it in
 isolated Docker volumes, copies the fixture into a writable workspace, and waits
 for `/healthz`.
 
