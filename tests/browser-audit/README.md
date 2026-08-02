@@ -65,9 +65,9 @@ Traverse adaptively rather than relying on brittle selectors. At minimum inspect
 - Settings, text inputs, buttons, disabled controls, and hover/focus/active and
   selected list states.
 - Problems after opening `src/diagnostics.js`, and terminal ANSI output after
-  running `node terminal-ansi.mjs`.
+  running `node terminal-ansi.js`.
 
-`contrast-helper.mjs` exports `scanVisibleContrastCandidates`, a browser-side
+`contrast-helper.js` exports `scanVisibleContrastCandidates`, a browser-side
 function for `page.evaluate(...)`. It composites alpha colors through practical
 ancestor backgrounds and returns visible text candidates with WCAG ratios. It
 cannot account for pseudo-elements, images, gradients, canvas rendering,
@@ -109,7 +109,7 @@ visual measurement. Do not change theme sources as part of discovery.
 
 ## Turning discoveries into repeatable checks
 
-The repeatable crawl is implemented in `audit.mjs`. It recreates known editor,
+The repeatable crawl is implemented in `audit.js`. It recreates known editor,
 Find, quick-input, activity-view, Problems, and terminal scenes for both
 generated themes. It records workbench token values, visible contrast
 candidates, selected hover/focus style deltas, screenshots, `report.json`, and

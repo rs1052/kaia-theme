@@ -2,7 +2,7 @@ import { rm, mkdir, writeFile } from "node:fs/promises";
 import { dirname, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
-import { scanVisibleContrastCandidates } from "./contrast-helper.mjs";
+import { scanVisibleContrastCandidates } from "./contrast-helper.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 const artifacts = resolve(root, "tests/browser-audit/artifacts/latest");
@@ -312,7 +312,7 @@ async function captureTerminal(page, variant) {
   if (await becomesVisible(trust, 2_000)) await trust.click();
   const terminal = page.locator(".xterm-helper-textarea").last();
   await terminal.waitFor({ timeout: 15_000 });
-  await terminal.fill("node terminal-ansi.mjs");
+  await terminal.fill("node terminal-ansi.js");
   await page.keyboard.press("Enter");
   await page.waitForTimeout(1_000);
   const result = {

@@ -5,7 +5,7 @@ import { dirname, resolve } from "node:path";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const composeFile = resolve(root, "tests/browser-audit/compose.yml");
-const auditScript = resolve(root, "tests/browser-audit/audit.mjs");
+const auditScript = resolve(root, "tests/browser-audit/audit.js");
 const port = process.env.KAIA_AUDIT_PORT ?? "8080";
 const password = "kaia-audit-local-only";
 const project = `kaia-audit-${createHash("sha256")
@@ -182,7 +182,7 @@ async function main() {
   const command = process.argv[2];
   if (!new Set(["audit", "start", "status", "stop"]).has(command))
     throw new Error(
-      "Usage: node scripts/browser-audit.mjs <audit|start|status|stop>",
+      "Usage: node scripts/browser-audit.js <audit|start|status|stop>",
     );
 
   if (command === "audit") await audit();
