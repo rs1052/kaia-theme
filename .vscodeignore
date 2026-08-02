@@ -1,7 +1,9 @@
 .vscode/**
 .vscode-test/**
+.playwright-cli/**
 .github/**
 .gitignore
+AGENTS.md
 node_modules/**
 package-lock.json
 tsconfig.json
@@ -9,6 +11,7 @@ vsc-extension-quickstart.md
 src/**
 scripts/**
 tests/**
+tests/browser-audit/artifacts/**
 references/**
 reports/**
 dist/**

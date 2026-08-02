@@ -28,7 +28,7 @@ code --install-extension .\kaia-theme-vscode.vsix --force
 
 Alternatively, after running `npm run package:vsix`, open the Extensions view in Visual Studio Code, select the `...` menu, choose **Install from VSIX...**, and select `kaia-theme-vscode.vsix`.
 
-Reload Visual Studio Code when prompted. Open the Command Palette with `Ctrl+Shift+P`, run **Preferences: Color Theme**, and test each Kaia variant. To test a new build, run the package and install commands again; `--force` replaces the installed local version. Manual installed-VSIX inspection is not performed by the automated checks.
+Reload Visual Studio Code when prompted. Open the Command Palette with `Ctrl+Shift+P`, run **Preferences: Color Theme**, and test each Kaia variant. To test a new build, run the package and install commands again; `--force` replaces the installed local version. For agent-operated installed-VSIX inspection, use the disposable local browser harness below; it is separate from normal automated checks.
 
 To remove the test installation:
 
@@ -55,3 +55,16 @@ npm run check
 `npm run refresh:vscode-reference` is the explicit network-only maintenance command. It clones the pinned `1.130.0` VS Code tag, extracts `registerColor()` registrations, and updates `references/vscode-1.130.0-workbench-colors.json`. Review the resulting inventory before committing an intentional refresh.
 
 The legacy files are parsed in memory as JSONC because VS Code color themes permit comments and trailing commas. They are never formatted or rewritten.
+
+### Local browser audit
+
+With Docker available, the browser harness packages the current VSIX, installs it into isolated disposable code-server storage, opens a fixture workspace, and waits for a local health check:
+
+```sh
+npm run audit:browser
+npm run audit:browser:start
+npm run audit:browser:status
+npm run audit:browser:stop
+```
+
+`audit:browser` runs the repeatable crawl, writes ignored JSON, Markdown, and screenshot evidence, and cleans up automatically. The lifecycle commands keep the harness available for adaptive agent inspection. It listens only on `127.0.0.1:8080` by default; set `KAIA_AUDIT_PORT` to use another local port. The printed fixed password is intentionally a local non-secret. The harness is exploratory Playwright evidence, not Electron-native coverage or a screenshot-baseline test, and `stop` removes all of its state. See [`tests/browser-audit/README.md`](tests/browser-audit/README.md) for traversal and reporting instructions.

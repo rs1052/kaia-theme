@@ -2,3 +2,5 @@ node_modules
 dist
 *.vsix
 *.code-workspace
+tests/browser-audit/artifacts/
+.playwright-cli/

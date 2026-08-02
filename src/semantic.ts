@@ -183,8 +183,11 @@ export const tokenRoleOverrides: Readonly<Record<string, Role>> = {
   "quickInputList.focusForeground": "onAccent",
   "quickInputList.focusHighlightForeground": "onAccent",
   "quickInputList.focusIconForeground": "onAccent",
+  "statusBarItem.prominentForeground": "onAccent",
+  "statusBarItem.prominentHoverForeground": "onAccent",
   "statusBarItem.remoteForeground": "onAccent",
   "statusBarItem.remoteHoverForeground": "onAccent",
+  "editorLineNumber.foreground": "muted",
   "editor.findMatchBackground": "findMatchActiveBackground",
   "editor.findMatchBorder": "accentBright",
   "editor.findMatchForeground": "findMatchActiveForeground",
@@ -267,6 +270,9 @@ export const foregroundSurfacePairs: Readonly<Record<string, string>> = {
   "quickInputList.focusForeground": "quickInputList.focusBackground",
   "quickInputList.focusHighlightForeground": "quickInputList.focusBackground",
   "quickInputList.focusIconForeground": "quickInputList.focusBackground",
+  "statusBarItem.prominentForeground": "statusBarItem.prominentBackground",
+  "statusBarItem.prominentHoverForeground":
+    "statusBarItem.prominentHoverBackground",
   "statusBarItem.remoteForeground": "statusBarItem.remoteBackground",
 };
 

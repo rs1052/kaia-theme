@@ -730,6 +730,11 @@ test("bright workbench surfaces use dark contrasting foregrounds", () => {
       "extensionButton.prominentBackground",
     ],
     ["quickInputList.focusForeground", "quickInputList.focusBackground"],
+    ["statusBarItem.prominentForeground", "statusBarItem.prominentBackground"],
+    [
+      "statusBarItem.prominentHoverForeground",
+      "statusBarItem.prominentHoverBackground",
+    ],
     ["statusBarItem.remoteForeground", "statusBarItem.remoteBackground"],
   ] as const;
   const tokens = [...new Set(pairs.flat())];
@@ -755,6 +760,31 @@ test("bright workbench surfaces use dark contrasting foregrounds", () => {
         ) >= 4.5,
         `${variant}: ${foreground} on ${background}`,
       );
+  }
+});
+
+test("editor line numbers meet normal-text contrast", () => {
+  const legacy: Theme = {
+    $schema: "x",
+    type: "dark",
+    colors: { "editorLineNumber.foreground": "#616161" },
+    tokenColors: [],
+  };
+  for (const variant of ["kaia", "oled"] as const) {
+    const generated = generateTheme(legacy, variant, [
+      "editorLineNumber.foreground",
+    ]);
+    assert.equal(
+      generated.colors["editorLineNumber.foreground"],
+      palettes[variant].muted,
+    );
+    assert.ok(
+      wcagContrast(
+        parse(generated.colors["editorLineNumber.foreground"])!,
+        parse(palettes[variant].canvas)!,
+      ) >= 4.5,
+      variant,
+    );
   }
 });
 

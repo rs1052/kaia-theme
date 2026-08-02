@@ -1,0 +1,8 @@
+{
+  "workbench.colorTheme": "Kaia",
+  "workbench.startupEditor": "none",
+  "editor.minimap.enabled": true,
+  "editor.renderWhitespace": "all",
+  "editor.wordWrap": "off",
+  "terminal.integrated.defaultProfile.linux": "sh"
+}

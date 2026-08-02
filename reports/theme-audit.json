@@ -875,6 +875,7 @@
           "editorGroupHeader.border",
           "editorGroupHeader.tabsBorder",
           "editorInfo.background",
+          "editorLineNumber.foreground",
           "editorWarning.background",
           "extensionButton.prominentForeground",
           "panel.border",
@@ -907,6 +908,8 @@
           "statusBar.border",
           "statusBar.debuggingBorder",
           "statusBar.noFolderBorder",
+          "statusBarItem.prominentForeground",
+          "statusBarItem.prominentHoverForeground",
           "statusBarItem.remoteForeground",
           "statusBarItem.remoteHoverForeground",
           "tab.activeBackground",
@@ -947,8 +950,8 @@
         {
           "foreground": "editorLineNumber.foreground",
           "background": "editor.background",
-          "ratio": 2.599943113084844,
-          "minimum": 2.5,
+          "ratio": 6.010172572969267,
+          "minimum": 4.5,
           "passes": true
         },
         {
@@ -1081,6 +1084,20 @@
           "foreground": "quickInputList.focusIconForeground",
           "background": "quickInputList.focusBackground",
           "ratio": 14.415163067092545,
+          "minimum": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "statusBarItem.prominentForeground",
+          "background": "statusBarItem.prominentBackground",
+          "ratio": 14.415163067092545,
+          "minimum": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "statusBarItem.prominentHoverForeground",
+          "background": "statusBarItem.prominentHoverBackground",
+          "ratio": 15.028234685812953,
           "minimum": 4.5,
           "passes": true
         },
@@ -1975,6 +1992,7 @@
           "editorGroupHeader.border",
           "editorGroupHeader.tabsBorder",
           "editorInfo.background",
+          "editorLineNumber.foreground",
           "editorWarning.background",
           "extensionButton.prominentForeground",
           "panel.border",
@@ -2008,6 +2026,8 @@
           "statusBar.border",
           "statusBar.debuggingBorder",
           "statusBar.noFolderBorder",
+          "statusBarItem.prominentForeground",
+          "statusBarItem.prominentHoverForeground",
           "statusBarItem.remoteForeground",
           "statusBarItem.remoteHoverForeground",
           "tab.activeBackground",
@@ -2048,8 +2068,8 @@
         {
           "foreground": "editorLineNumber.foreground",
           "background": "editor.background",
-          "ratio": 3.3907685597669124,
-          "minimum": 2.5,
+          "ratio": 7.838288498173218,
+          "minimum": 4.5,
           "passes": true
         },
         {
@@ -2182,6 +2202,20 @@
           "foreground": "quickInputList.focusIconForeground",
           "background": "quickInputList.focusBackground",
           "ratio": 18.799827375382858,
+          "minimum": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "statusBarItem.prominentForeground",
+          "background": "statusBarItem.prominentBackground",
+          "ratio": 18.799827375382858,
+          "minimum": 4.5,
+          "passes": true
+        },
+        {
+          "foreground": "statusBarItem.prominentHoverForeground",
+          "background": "statusBarItem.prominentHoverBackground",
+          "ratio": 19.599377165215017,
           "minimum": 4.5,
           "passes": true
         },

@@ -103,12 +103,7 @@ for (const definition of variantDefinitions) {
           composite(theme.colors[foreground], effectiveBackground),
           effectiveBackground,
         ),
-        minimum:
-          foreground === "editorLineNumber.foreground"
-            ? (["kaia", "oled"] as string[]).includes(variant)
-              ? 2.5
-              : 3
-            : 4.5,
+        minimum: 4.5,
       };
     })
     .map((entry) => ({
