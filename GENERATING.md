@@ -1,6 +1,6 @@
 # Generating Kaia
 
-`src/variants.ts` is the typed registry for every generated theme. `src/semantic.ts` builds the Kaia, Subtle, and OLED semantic palettes; `src/theme.ts` applies those roles to the preserved legacy TextMate scope inventory, supplies semantic-token colors, and assigns every pinned VS Code workbench token. The role fallback is deliberate and deterministic for newly registered workbench colors. `references/2026-dark.json` is the committed pinned-version reference used offline.
+`src/variants.ts` is the typed registry for the generated Kaia and Kaia OLED themes. `src/semantic.ts` builds their semantic palettes; `src/theme.ts` applies those roles to the preserved legacy TextMate scope inventory, supplies semantic-token colors, and assigns every pinned VS Code workbench token. The role fallback is deliberate and deterministic for newly registered workbench colors. `references/2026-dark.json` is the committed pinned-version reference used offline.
 
 | Command                            | Purpose                                                 | Network |
 | ---------------------------------- | ------------------------------------------------------- | ------- |
@@ -9,4 +9,4 @@
 | `npm run audit:themes`             | Generate/check contrast, polarity, and coverage reports | No      |
 | `npm run refresh:vscode-reference` | Re-extract the fixed VS Code tag                        | Yes     |
 
-The preserved `*-old.json` files are byte-identical source artifacts. Generated theme JSON is intentionally ignored by formatting tools but is committed with the extension.
+Only Kaia and Kaia OLED are generated. The preserved `*-old.json` files are historical source artifacts and byte-identical. Generated theme JSON is intentionally ignored by formatting tools but is committed with the extension.

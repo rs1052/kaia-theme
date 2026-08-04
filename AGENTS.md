@@ -27,19 +27,10 @@
 - `npm run package:vsix` builds the generated themes and writes an ignored VSIX.
 - Keep extension-only contents in the VSIX; update `.vscodeignore` for new local
   tooling or agent documentation.
-- Do not add browser artifacts, screenshots, snapshots, generated `dist/`, or
-  VSIX files to Git.
+- Curated images under `images/` are allowed. Do not add temporary captures,
+  ad hoc screenshots, snapshots, generated `dist/`, or VSIX files to Git.
 - Follow existing Prettier and oxlint style. Keep changes focused and avoid
   unrelated cleanup.
-
-## Browser audit harness
-
-- `npm run audit:browser` runs the repeatable crawl and cleans up; the
-  `audit:browser:start|status|stop` commands support adaptive inspection.
-- Details and the agent findings format are in `tests/browser-audit/README.md`.
-- It is for exploratory Playwright inspection only, not Electron-native tests
-  or a committed screenshot baseline.
-- Do not make theme-color changes while collecting audit findings.
 
 ## Change review
 

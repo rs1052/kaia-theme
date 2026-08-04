@@ -1,14 +1,19 @@
 # Kaia for Visual Studio Code
 
-A Monokai-inspired theme for Visual Studio Code with a focus on accessible contrast ratios.
+A dark, Monokai-inspired theme for Visual Studio Code with accessible
+contrast, restrained pastel syntax colors, and a pale-yellow accent.
 
-**Kaia**
+## Theme variants
+
+**Kaia** is the maintained dark theme with Monokai-inspired color and accessible contrast.
 
 ![Kaia Theme](images/kaia-theme.png)
 
-**Kaia Subtle - Old**
+**Kaia OLED** is the maintained true-black variant, retaining structural borders for separation.
 
-![Kaia Subtle - Old Theme](images/kaia-subtle-theme.png)
+![Kaia OLED Theme](images/kaia-oled-theme.png)
+
+**Kaia - Old** and **Kaia Subtle - Old** remain selectable for historical comparison.
 
 ## Installation
 
@@ -28,18 +33,13 @@ code --install-extension .\kaia-theme-vscode.vsix --force
 
 Alternatively, after running `npm run package:vsix`, open the Extensions view in Visual Studio Code, select the `...` menu, choose **Install from VSIX...**, and select `kaia-theme-vscode.vsix`.
 
-Reload Visual Studio Code when prompted. Open the Command Palette with `Ctrl+Shift+P`, run **Preferences: Color Theme**, and test each Kaia variant. To test a new build, run the package and install commands again; `--force` replaces the installed local version. For agent-operated installed-VSIX inspection, use the disposable local browser harness below; it is separate from normal automated checks.
+Reload Visual Studio Code when prompted. Open the Command Palette with `Ctrl+Shift+P`, run **Preferences: Color Theme**, and test each Kaia variant. To test a new build, run the package and install commands again; `--force` replaces the installed local version.
 
 To remove the test installation:
 
 ```powershell
 code --uninstall-extension ryan0x200.kaia-theme-vscode
 ```
-
-## Theme variants
-
-- **Kaia** and **Kaia OLED** are generated dark themes. OLED uses true black for every neutral workbench surface, with structural borders retained for separation.
-- **Kaia - Old** and **Kaia Subtle - Old** retain the original extension theme bytes for comparison and rollback.
 
 ## Development
 
@@ -55,16 +55,3 @@ npm run check
 `npm run refresh:vscode-reference` is the explicit network-only maintenance command. It clones the pinned `1.130.0` VS Code tag, extracts `registerColor()` registrations, and updates `references/vscode-1.130.0-workbench-colors.json`. Review the resulting inventory before committing an intentional refresh.
 
 The legacy files are parsed in memory as JSONC because VS Code color themes permit comments and trailing commas. They are never formatted or rewritten.
-
-### Local browser audit
-
-Docker must be installed, and Docker Desktop or the Docker daemon must already be running; the audit does not start Docker itself. The browser harness packages the current VSIX, installs it into isolated disposable code-server storage, opens a fixture workspace, and waits for a local health check:
-
-```sh
-npm run audit:browser
-npm run audit:browser:start
-npm run audit:browser:status
-npm run audit:browser:stop
-```
-
-`audit:browser` runs the repeatable crawl, writes ignored JSON, Markdown, and screenshot evidence, and cleans up automatically. The lifecycle commands keep the harness available for adaptive agent inspection. It listens only on `127.0.0.1:8080` by default; set `KAIA_AUDIT_PORT` to use another local port. The printed fixed password is intentionally a local non-secret. The harness is exploratory Playwright evidence, not Electron-native coverage or a screenshot-baseline test, and `stop` removes all of its state. See [`tests/browser-audit/README.md`](tests/browser-audit/README.md) for traversal and reporting instructions.

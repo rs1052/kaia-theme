@@ -1,6 +1,5 @@
 .vscode/**
 .vscode-test/**
-.playwright-cli/**
 .github/**
 .gitignore
 AGENTS.md
@@ -11,7 +10,6 @@ vsc-extension-quickstart.md
 src/**
 scripts/**
 tests/**
-tests/browser-audit/artifacts/**
 references/**
 reports/**
 dist/**
