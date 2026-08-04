@@ -2,7 +2,7 @@
   "name": "kaia-theme-vscode",
   "displayName": "Kaia Theme",
   "description": "🎨 A Monokai-inspired theme with a focus on accessible contrast ratios.",
-  "version": "1.5.0",
+  "version": "2.0.0",
   "type": "module",
   "publisher": "ryan0x200",
   "icon": "images/logo.png",
