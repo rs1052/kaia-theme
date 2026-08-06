@@ -1,15 +1,6 @@
 .vscode/**
-.vscode-test/**
 .github/**
 .gitignore
 AGENTS.md
+demo/**
 node_modules/**
-package-lock.json
-tsconfig.json
-vsc-extension-quickstart.md
-src/**
-scripts/**
-tests/**
-references/**
-reports/**
-dist/**

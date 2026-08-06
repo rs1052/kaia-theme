@@ -1,39 +1,26 @@
 # Repository guide
 
-## Scope and commands
+## JSON-only extension
 
-- This is a Node/npm ESM VS Code theme extension; use the checked-in lockfile.
-- Run `npm ci` before verification when dependencies are absent.
-- `npm run check` is the normal offline-capable full verification command.
-- Run the narrowest relevant command first: `test`, `audit:themes`,
-  `check:generated`, or `package:vsix` as appropriate.
-- `npm run refresh:vscode-reference` is the only network maintenance command.
+- This extension contains only manifest, theme JSON, documentation, images, and license notices.
+- Keep maintained theme files strict JSON. Do not add generators, dependencies, build scripts, tests, reports, or CI. The dependency-free `package:vsix` and `install:vsix` scripts are the sole packaging conveniences.
+- `themes/kaia-old.json` and `themes/kaia-subtle-old.json` are byte-preserved legacy JSONC files; do not format or edit them.
 
-## Theme generation
+## Theme maintenance
 
-- `src/variants.ts` registers generated Kaia and Kaia OLED variants.
-- `src/semantic.ts` defines palette roles and token rules; `src/theme.ts`
-  assembles generated themes.
-- `scripts/build-themes.ts` writes `themes/kaia.json` and
-  `themes/kaia-oled.json`; do not edit those generated files by hand.
-- `scripts/audit-themes.ts` is the deterministic Culori contrast, coverage, and
-  polarity audit. Preserve it as authoritative static evidence.
-- The `themes/*-old.json` files are preserved legacy artifacts. Do not format,
-  rewrite, or modify them; tests enforce their hashes.
-- Review generated reports and theme bytes after source changes.
+- Maintain `kaia.json` and `kaia-oled.json` directly. They are flattened Dark 2026-derived variants.
+- The Dark 2026 variants are flattened from VS Code 1.132.0 commit
+  `df53daabb18cd157bdb08c7f01c34df936cf12f4`; retain the notice in
+  `THIRD_PARTY_NOTICES.md` when updating them.
 
 ## Packaging and repository hygiene
 
-- `npm run package:vsix` builds the generated themes and writes an ignored VSIX.
-- Keep extension-only contents in the VSIX; update `.vscodeignore` for new local
-  tooling or agent documentation.
-- Curated images under `images/` are allowed. Do not add temporary captures,
-  ad hoc screenshots, snapshots, generated `dist/`, or VSIX files to Git.
-- Follow existing Prettier and oxlint style. Keep changes focused and avoid
-  unrelated cleanup.
+- Run `npm run package:vsix` to create the ignored local VSIX.
+- Run `npm run install:vsix` to package and force-install it through the VS Code CLI.
+- Keep extension-only contents in the VSIX and exclude agent instructions and local dependencies.
+- Do not add temporary captures, snapshots, generated output, or VSIX files to Git.
 
 ## Change review
 
-- Do not hand-edit generated themes or alter preserved legacy themes.
 - Inspect `git diff` and `npm pack --dry-run` before completing packaging work.
 - Report commands run, exact results, changed files, and any remaining risk.

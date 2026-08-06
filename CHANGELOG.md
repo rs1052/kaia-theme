@@ -1,5 +1,13 @@
 # Change Log
 
+## 2.0.1
+
+- Update Kaia and Kaia OLED contrast issues.
+
+## 2.0.0
+
+- Create new themes. Old ones remain under Kaia - Old.
+
 ## 1.1.8
 
 - Update tab colors to make active tabs stand out more.
