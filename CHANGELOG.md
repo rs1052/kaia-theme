@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.0.2
+
+- Update misc. colors to match brand.
+
 ## 2.0.1
 
 - Update Kaia and Kaia OLED contrast issues.
