@@ -1,0 +1,33 @@
+# Kaia OLED for Ghostty
+# The ANSI palette uses Kaia's UI and syntax colors because the VS Code theme
+# does not define terminal ANSI colors.
+
+background = #000000
+foreground = #CCCCCC
+
+cursor-color = #BFBFBF
+cursor-text = #000000
+
+# Kaia uses #FFFFFF33 (20% white); #333333 is its RGB composite on OLED black.
+selection-background = #333333
+selection-foreground = #F5F5F5
+
+# ANSI 0-7
+palette = 0=#000000
+palette = 1=#E78D8D
+palette = 2=#8EC391
+palette = 3=#E4BA7D
+palette = 4=#50ACD4
+palette = 5=#BB7CC6
+palette = 6=#81D4FA
+palette = 7=#BFBFBF
+
+# Bright ANSI 8-15
+palette = 8=#707070
+palette = 9=#EF9A9A
+palette = 10=#A5D6A7
+palette = 11=#FFF59D
+palette = 12=#81D4FA
+palette = 13=#CE93D8
+palette = 14=#B2EBF2
+palette = 15=#F5F5F5

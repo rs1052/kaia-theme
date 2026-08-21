@@ -3,4 +3,6 @@
 .gitignore
 AGENTS.md
 demo/**
+ghostty/**
 node_modules/**
+opencode/**
