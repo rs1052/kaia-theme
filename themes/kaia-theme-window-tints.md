@@ -1,12 +1,12 @@
 # Kaia Theme Window Tints
 
-Eight color variants for the [Kaia](https://github.com/rs1052/kaia-theme-vscode) VS Code theme, designed to subtly tint each window so you can tell workspaces apart at a glance.
+Eight color variants for the [Kaia OLED](https://github.com/rs1052/kaia-theme-vscode) VS Code theme, designed to subtly tint each window so you can tell workspaces apart at a glance.
 
 Surfaces sit very close to Kaia's original near-black values with only a slight hue shift. Accents, badges, focus rings, links, and find matches stay vibrant.
 
 ## Usage
 
-Copy the `workbench.colorCustomizations` block into your user `settings.json` (or a per-profile / per-workspace `settings.json`). The `[Kaia]` scope means the overrides only apply when the Kaia theme is active.
+Copy the `workbench.colorCustomizations` block into your user `settings.json` (or a per-profile / per-workspace `settings.json`). The `[Kaia OLED]` scope means the overrides only apply when the Kaia theme is active.
 
 ---
 
@@ -19,7 +19,7 @@ Base `#006D77` · Accent `#83C5BE` · Highlight `#FFDDD2`
 
 ```jsonc
 "workbench.colorCustomizations": {
-  "[Kaia]": {
+  "[Kaia OLED]": {
     "editor.background": "#0D1112",
     "editorGutter.background": "#0D1112",
     "editorStickyScroll.background": "#0D1112",
@@ -127,7 +127,7 @@ Base `#606C38` · Accent `#DDA15E` · Highlight `#FEFAE0`
 
 ```jsonc
 "workbench.colorCustomizations": {
-  "[Kaia]": {
+  "[Kaia OLED]": {
     "editor.background": "#10120C",
     "editorGutter.background": "#10120C",
     "editorStickyScroll.background": "#10120C",
@@ -235,15 +235,15 @@ Base `#5A189A` · Accent `#C77DFF` · Highlight `#E0AAFF`
 
 ```jsonc
 "workbench.colorCustomizations": {
-  "[Kaia]": {
-    "editor.background": "#100D12",
-    "editorGutter.background": "#100D12",
-    "editorStickyScroll.background": "#100D12",
-    "breadcrumb.background": "#100D12",
-    "tab.activeBackground": "#100D12",
-    "tab.activeBorder": "#100D12",
-    "tab.hoverBackground": "#100D12",
-    "agents.background": "#100D12",
+  "[Kaia OLED]": {
+    "editor.background": "#000000",
+    "editorGutter.background": "#000000",
+    "editorStickyScroll.background": "#000000",
+    "breadcrumb.background": "#000000",
+    "tab.activeBackground": "#000000",
+    "tab.activeBorder": "#000000",
+    "tab.hoverBackground": "#000000",
+    "agents.background": "#000000",
 
     "activityBar.background": "#161319",
     "sideBar.background": "#161319",
@@ -325,116 +325,8 @@ Base `#5A189A` · Accent `#C77DFF` · Highlight `#E0AAFF`
     "chat.slashCommandForeground": "#C77DFF",
     "extensionButton.prominentBackground": "#3B1A50",
     "extensionButton.prominentForeground": "#EFDCFF",
-    "extensionButton.prominentHoverBackground": "#4E2469"
-  }
-}
-```
-
-</details>
-
----
-
-## 4. Rosé — Crimson and Pink
-
-Base `#A4133C` · Accent `#FF758F` · Highlight `#FFB3C1`
-
-<details>
-<summary>Show JSON</summary>
-
-```jsonc
-"workbench.colorCustomizations": {
-  "[Kaia]": {
-    "editor.background": "#120D0F",
-    "editorGutter.background": "#120D0F",
-    "editorStickyScroll.background": "#120D0F",
-    "breadcrumb.background": "#120D0F",
-    "tab.activeBackground": "#120D0F",
-    "tab.activeBorder": "#120D0F",
-    "tab.hoverBackground": "#120D0F",
-    "agents.background": "#120D0F",
-
-    "activityBar.background": "#181415",
-    "sideBar.background": "#181415",
-    "sideBarSectionHeader.background": "#181415",
-    "statusBar.background": "#181415",
-    "statusBar.noFolderBackground": "#181415",
-    "titleBar.activeBackground": "#181415",
-    "titleBar.inactiveBackground": "#181415",
-    "panel.background": "#181415",
-    "terminal.background": "#181415",
-    "tab.inactiveBackground": "#181415",
-    "editorGroupHeader.tabsBackground": "#181415",
-    "commandCenter.background": "#181415",
-    "agentsPanel.background": "#181415",
-    "surface.background": "#181415",
-
-    "editorWidget.background": "#20191C",
-    "notifications.background": "#20191C",
-    "quickInput.background": "#20191C",
-    "menu.background": "#20191C",
-    "agentsChatInput.background": "#20191C",
-    "tab.selectedBackground": "#3A2E33",
-
-    "activityBar.border": "#32262A",
-    "sideBar.border": "#32262A",
-    "panel.border": "#32262A",
-    "titleBar.border": "#32262A",
-    "editorGroupHeader.tabsBorder": "#32262A",
-    "editorGroup.border": "#32262A",
-    "tab.border": "#32262A",
-    "statusBar.border": "#32262A",
-    "input.border": "#402F35",
-
-    "editor.selectionBackground": "#FF4D6D33",
-    "editor.inactiveSelectionBackground": "#FF4D6D1F",
-    "editor.selectionHighlightBackground": "#FF4D6D26",
-    "editor.findMatchBackground": "#FFB3C159",
-    "editor.findMatchHighlightBackground": "#FF758F3A",
-    "list.activeSelectionBackground": "#FF4D6D2D",
-    "list.hoverBackground": "#FF758F14",
-    "terminal.selectionBackground": "#FF4D6D33",
-
-    "activityBar.activeBorder": "#FF758F",
-    "activityBarTop.activeBorder": "#FF758F",
-    "activityBarBadge.background": "#FF8FA3",
-    "activityBarBadge.foreground": "#241116",
-    "badge.background": "#FF8FA3",
-    "badge.foreground": "#241116",
-    "focusBorder": "#FFB3C1B3",
-    "list.focusOutline": "#FFB3C1B3",
-    "statusBar.focusBorder": "#FFB3C1B3",
-    "statusBarItem.focusBorder": "#FFB3C1B3",
-    "agentsChatInput.focusBorder": "#FFB3C1B3",
-    "progressBar.background": "#FF758F",
-    "tab.activeBorderTop": "#FF758F",
-    "tab.selectedBorderTop": "#FFB3C1",
-    "panelTitle.activeBorder": "#FF758F",
-    "textLink.foreground": "#FF758F",
-    "textLink.activeForeground": "#FFB3C1",
-    "notificationLink.foreground": "#FF758F",
-    "list.highlightForeground": "#FF758F",
-    "menu.selectionBorder": "#FF758F",
-    "commandCenter.activeBorder": "#FF758F",
-    "inputOption.activeBorder": "#FF758F",
-    "button.background": "#511B2D",
-    "button.border": "#FF758F80",
-    "button.foreground": "#FFE0E7",
-    "button.hoverBackground": "#68243B",
-    "statusBarItem.remoteBackground": "#511B2D",
-    "statusBarItem.remoteForeground": "#FFB3C1",
-    "statusBar.debuggingBackground": "#511B2D",
-    "statusBar.debuggingForeground": "#FFB3C1",
-    "statusBarItem.prominentBackground": "#511B2D",
-    "statusBarItem.prominentForeground": "#FFB3C1",
-    "quickInputList.focusBackground": "#511B2D",
-    "quickInputList.focusForeground": "#FFE0E7",
-    "quickInputList.focusIconForeground": "#FF758F",
-    "chat.slashCommandBackground": "#511B2D",
-    "chat.slashCommandForeground": "#FF758F",
-    "extensionButton.prominentBackground": "#511B2D",
-    "extensionButton.prominentForeground": "#FFE0E7",
-    "extensionButton.prominentHoverBackground": "#68243B"
-  }
+    "extensionButton.prominentHoverBackground": "#4E2469",
+  },
 }
 ```
 
@@ -451,7 +343,7 @@ Base `#FF6D00` · Accent `#FF9E00` · Highlight `#FFB600`
 
 ```jsonc
 "workbench.colorCustomizations": {
-  "[Kaia]": {
+  "[Kaia OLED]": {
     "editor.background": "#130F0C",
     "editorGutter.background": "#130F0C",
     "editorStickyScroll.background": "#130F0C",
@@ -559,7 +451,7 @@ Base `#0077B6` · Accent `#48CAE4` · Highlight `#90E0EF`
 
 ```jsonc
 "workbench.colorCustomizations": {
-  "[Kaia]": {
+  "[Kaia OLED]": {
     "editor.background": "#0C1013",
     "editorGutter.background": "#0C1013",
     "editorStickyScroll.background": "#0C1013",
@@ -667,7 +559,7 @@ Base `#161616` · Accent `#FFD60A` · Highlight `#FFE566`
 
 ```jsonc
 "workbench.colorCustomizations": {
-  "[Kaia]": {
+  "[Kaia OLED]": {
     "editor.background": "#101010",
     "editorGutter.background": "#101010",
     "editorStickyScroll.background": "#101010",
@@ -775,64 +667,64 @@ Base `#2E4020` · Accent `#C7F464` · Highlight `#E4FFA8`
 
 ```jsonc
 "workbench.colorCustomizations": {
-  "[Kaia]": {
-    "editor.background": "#0E120A",
-    "editorGutter.background": "#0E120A",
-    "editorStickyScroll.background": "#0E120A",
-    "breadcrumb.background": "#0E120A",
-    "tab.activeBackground": "#0E120A",
-    "tab.activeBorder": "#0E120A",
-    "tab.hoverBackground": "#0E120A",
-    "agents.background": "#0E120A",
+  "[Kaia OLED]": {
+    "editor.background": "#0B0E08",
+    "editorGutter.background": "#0B0E08",
+    "editorStickyScroll.background": "#0B0E08",
+    "breadcrumb.background": "#0B0E08",
+    "tab.activeBackground": "#0B0E08",
+    "tab.activeBorder": "#0B0E08",
+    "tab.hoverBackground": "#0F120C",
+    "agents.background": "#0B0E08",
 
-    "activityBar.background": "#14190F",
-    "sideBar.background": "#14190F",
-    "sideBarSectionHeader.background": "#14190F",
-    "statusBar.background": "#14190F",
-    "statusBar.noFolderBackground": "#14190F",
-    "titleBar.activeBackground": "#14190F",
-    "titleBar.inactiveBackground": "#14190F",
-    "panel.background": "#14190F",
-    "terminal.background": "#14190F",
-    "tab.inactiveBackground": "#14190F",
-    "editorGroupHeader.tabsBackground": "#14190F",
-    "commandCenter.background": "#14190F",
-    "agentsPanel.background": "#14190F",
-    "surface.background": "#14190F",
+    "activityBar.background": "#10140C",
+    "sideBar.background": "#10140C",
+    "sideBarSectionHeader.background": "#10140C",
+    "statusBar.background": "#10140C",
+    "statusBar.noFolderBackground": "#10140C",
+    "titleBar.activeBackground": "#10140C",
+    "titleBar.inactiveBackground": "#10140C",
+    "panel.background": "#10140C",
+    "terminal.background": "#10140C",
+    "tab.inactiveBackground": "#10140C",
+    "editorGroupHeader.tabsBackground": "#10140C",
+    "commandCenter.background": "#151911",
+    "agentsPanel.background": "#10140C",
+    "surface.background": "#10140C",
 
-    "editorWidget.background": "#1C2215",
-    "notifications.background": "#1C2215",
-    "quickInput.background": "#1C2215",
-    "menu.background": "#1C2215",
-    "agentsChatInput.background": "#1C2215",
-    "tab.selectedBackground": "#323C26",
+    "editorWidget.background": "#1D2217",
+    "notifications.background": "#1D2217",
+    "quickInput.background": "#1D2217",
+    "menu.background": "#1D2217",
+    "agentsChatInput.background": "#1D2217",
+    "tab.selectedBackground": "#333B2A",
 
-    "activityBar.border": "#28331B",
-    "sideBar.border": "#28331B",
-    "panel.border": "#28331B",
-    "titleBar.border": "#28331B",
-    "editorGroupHeader.tabsBorder": "#28331B",
-    "editorGroup.border": "#28331B",
-    "tab.border": "#28331B",
-    "statusBar.border": "#28331B",
-    "input.border": "#334022",
+    "activityBar.border": "#29311E",
+    "sideBar.border": "#29311E",
+    "panel.border": "#29311E",
+    "titleBar.border": "#29311E",
+    "editorGroupHeader.tabsBorder": "#29311E",
+    "editorGroup.border": "#29311E",
+    "tab.border": "#29311E",
+    "statusBar.border": "#29311E",
+    "input.border": "#333E26",
 
-    "editor.selectionBackground": "#7BAE3B3D",
-    "editor.inactiveSelectionBackground": "#7BAE3B24",
-    "editor.selectionHighlightBackground": "#7BAE3B2B",
+    "editor.selectionBackground": "#739C403D",
+    "editor.inactiveSelectionBackground": "#95BE6224",
+    "editor.selectionHighlightBackground": "#95BE622B",
     "editor.findMatchBackground": "#C7F4645E",
     "editor.findMatchHighlightBackground": "#C7F46438",
-    "list.activeSelectionBackground": "#7BAE3B33",
+    "list.activeSelectionBackground": "#95BE6233",
     "list.hoverBackground": "#C7F46414",
-    "terminal.selectionBackground": "#7BAE3B3D",
+    "terminal.selectionBackground": "#95BE623D",
 
     "activityBar.activeBorder": "#C7F464",
     "activityBarTop.activeBorder": "#C7F464",
     "activityBarBadge.background": "#C7F464",
-    "activityBarBadge.foreground": "#17200D",
+    "activityBarBadge.foreground": "#192011",
     "activityWarningBadge.background": "#C7F464",
     "badge.background": "#C7F464",
-    "badge.foreground": "#17200D",
+    "badge.foreground": "#192011",
     "focusBorder": "#C7F464B3",
     "list.focusOutline": "#C7F464B3",
     "statusBar.focusBorder": "#C7F464B3",
@@ -849,24 +741,24 @@ Base `#2E4020` · Accent `#C7F464` · Highlight `#E4FFA8`
     "menu.selectionBorder": "#C7F464",
     "commandCenter.activeBorder": "#C7F464",
     "inputOption.activeBorder": "#C7F464",
-    "button.background": "#2E4020",
+    "button.background": "#2F3D20",
     "button.border": "#C7F46480",
-    "button.foreground": "#DFFFA8",
-    "button.hoverBackground": "#3B522A",
-    "statusBarItem.remoteBackground": "#2E4020",
+    "button.foreground": "#E5FDA6",
+    "button.hoverBackground": "#3C4E2A",
+    "statusBarItem.remoteBackground": "#2F3D20",
     "statusBarItem.remoteForeground": "#C7F464",
-    "statusBar.debuggingBackground": "#2E4020",
+    "statusBar.debuggingBackground": "#2F3D20",
     "statusBar.debuggingForeground": "#C7F464",
-    "statusBarItem.prominentBackground": "#2E4020",
+    "statusBarItem.prominentBackground": "#2F3D20",
     "statusBarItem.prominentForeground": "#C7F464",
-    "quickInputList.focusBackground": "#2E4020",
-    "quickInputList.focusForeground": "#DFFFA8",
+    "quickInputList.focusBackground": "#2F3D20",
+    "quickInputList.focusForeground": "#E5FDA6",
     "quickInputList.focusIconForeground": "#C7F464",
-    "chat.slashCommandBackground": "#2E4020",
+    "chat.slashCommandBackground": "#2F3D20",
     "chat.slashCommandForeground": "#C7F464",
-    "extensionButton.prominentBackground": "#2E4020",
-    "extensionButton.prominentForeground": "#DFFFA8",
-    "extensionButton.prominentHoverBackground": "#3B522A"
+    "extensionButton.prominentBackground": "#2F3D20",
+    "extensionButton.prominentForeground": "#E5FDA6",
+    "extensionButton.prominentHoverBackground": "#3C4E2A"
   }
 }
 ```
@@ -884,7 +776,7 @@ Base `#E94F37` · Accent `#F4845F` · Highlight `#F7B267`
 
 ```jsonc
 "workbench.colorCustomizations": {
-  "[Kaia]": {
+  "[Kaia OLED]": {
     "editor.background": "#130E0C",
     "editorGutter.background": "#130E0C",
     "editorStickyScroll.background": "#130E0C",
@@ -992,15 +884,15 @@ Base `#575B7A` · Accent `#ACB3BF` · Highlight `#C9D6EA`
 
 ```jsonc
 "workbench.colorCustomizations": {
-  "[Kaia]": {
-    "editor.background": "#0E0F14",
-    "editorGutter.background": "#0E0F14",
-    "editorStickyScroll.background": "#0E0F14",
-    "breadcrumb.background": "#0E0F14",
-    "tab.activeBackground": "#0E0F14",
-    "tab.activeBorder": "#0E0F14",
-    "tab.hoverBackground": "#0E0F14",
-    "agents.background": "#0E0F14",
+  "[Kaia OLED]": {
+    "editor.background": "#000000",
+    "editorGutter.background": "#000000",
+    "editorStickyScroll.background": "#000000",
+    "breadcrumb.background": "#000000",
+    "tab.activeBackground": "#000000",
+    "tab.activeBorder": "#000000",
+    "tab.hoverBackground": "#000000",
+    "agents.background": "#000000",
 
     "activityBar.background": "#14161D",
     "sideBar.background": "#14161D",
@@ -1100,7 +992,7 @@ Base `#5E239D` · Accent `#D96098` · Highlight `#F2B880`
 
 ```jsonc
 "workbench.colorCustomizations": {
-  "[Kaia]": {
+  "[Kaia OLED]": {
     "editor.background": "#110D13",
     "editorGutter.background": "#110D13",
     "editorStickyScroll.background": "#110D13",
@@ -1208,7 +1100,7 @@ Base `#454ADE` · Accent `#6A5ACD` · Highlight `#FFB319`
 
 ```jsonc
 "workbench.colorCustomizations": {
-  "[Kaia]": {
+  "[Kaia OLED]": {
     "editor.background": "#0D0E14",
     "editorGutter.background": "#0D0E14",
     "editorStickyScroll.background": "#0D0E14",
@@ -1316,7 +1208,7 @@ Base `#8C4A32` · Accent `#E08E6D` · Highlight `#FFB5B5`
 
 ```jsonc
 "workbench.colorCustomizations": {
-  "[Kaia]": {
+  "[Kaia OLED]": {
     "editor.background": "#120F0D",
     "editorGutter.background": "#120F0D",
     "editorStickyScroll.background": "#120F0D",
@@ -1424,7 +1316,7 @@ Base `#0096C7` · Accent `#90E0EF` · Highlight `#CAF0F8`
 
 ```jsonc
 "workbench.colorCustomizations": {
-  "[Kaia]": {
+  "[Kaia OLED]": {
     "editor.background": "#0D1114",
     "editorGutter.background": "#0D1114",
     "editorStickyScroll.background": "#0D1114",
